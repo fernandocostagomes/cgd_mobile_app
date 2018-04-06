@@ -1,0 +1,79 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"    
+    android:paddingTop="40dp"
+    android:layout_gravity="center">
+    <TableRow
+        android:id="@+id/linha1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tv1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/tvCodeCat"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/linha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+        <EditText
+            android:id="@+id/etRemoverPontoId"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="idPonto" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/linha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/btDeletePoint"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btDelete"
+        android:onClick="evtExcluirPoint"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/linha4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tv2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/tvRemovePoint"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/linha5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+        <EditText
+            android:id="@+id/etRemoverPoint"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:hint="qtdPoint" />
+    </TableRow>
+   
+    <TableRow
+        android:id="@+id/linha6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/btRemovePoint2"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btDelete"
+        android:onClick="evtRemovePoint"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+</TableLayout>

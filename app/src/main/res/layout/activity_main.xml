@@ -1,0 +1,110 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"    
+    android:paddingTop="40dp"
+    android:layout_gravity="center">
+    <TableRow
+        android:id="@+id/linha1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/Grupo"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <AutoCompleteTextView
+            android:id="@+id/edGrupo"            
+            android:layout_width="250dp"            
+            android:ems="10"
+            android:layout_height="50dp"            
+            android:inputType="text" >            
+        </AutoCompleteTextView>        
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tvSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/Senha"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+        <EditText
+            android:id="@+id/edSenha"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/btEntrar"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btEntrar"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:onClick="evtBtEntrar" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linhaEspacamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/tvEspacamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha6"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/Acesso1"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha7"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/btCadastrar"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btCadastrar"
+        android:onClick="evtBtCadastrarGrupo"
+        android:textAppearance="?android:attr/textAppearanceSmall" /> 
+    </TableRow>
+    <TableRow
+        android:id="@+id/tableRow1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/btEsqueciSenhaGrupo"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btEsqueciSenhaGrupo"
+        android:onClick="btEsqueciSenhaGrupo"
+        android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+</TableLayout>

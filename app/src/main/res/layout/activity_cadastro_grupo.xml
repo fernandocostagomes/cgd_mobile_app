@@ -1,0 +1,139 @@
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"    
+    android:paddingTop="50dp"
+    android:layout_gravity="center"
+    tools:context="br.com.fgomes.cgd.activities.CadastroGrupoActivity"        
+     >
+
+    <TableRow
+        android:id="@+id/linha1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvNomeGrupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/CadastronomeGrupo"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha1.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edCadastroNomeGrupo"            
+            android:layout_width="250dp"            
+            android:ems="10"
+            android:layout_height="50dp"            
+            android:inputType="text" />            
+                
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvCadastroSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/CadastrarSenha"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha2.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+
+        <EditText
+            android:id="@+id/edCadastroSenha"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            />
+    </TableRow>
+
+	<TableRow
+        android:id="@+id/linha3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvConfirmarCadastrarSenha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/ConfirmarSenha"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha3.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+
+        <EditText
+            android:id="@+id/edCadastroSenhaConfirma"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="textPassword"
+            />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvTelefoneContatoGrupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"            
+            android:text="@string/CadastrarTelefoneContatoGrupo"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha4.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >        
+
+        <EditText
+            android:id="@+id/edCadastrarTelefoneContatoGrupo"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="phone"
+            />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="60dp"
+        android:text="@string/btSalvarCadastroGrupo"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:onClick="evtBtCadastrarGrupo" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linhaEspacamento"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvEspacamento"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=""
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+    
+</TableLayout>

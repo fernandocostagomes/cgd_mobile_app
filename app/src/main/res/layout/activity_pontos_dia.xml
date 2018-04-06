@@ -1,0 +1,121 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:layout_gravity="center"
+              android:orientation="vertical"
+              android:paddingLeft="5dp"
+              android:paddingRight="5dp"
+              android:paddingTop="10dp"
+              android:stretchColumns="1,0"
+              tools:context="br.com.fgomes.cgd.activities.PontosDiaActivity" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:text="De"
+                    android:textStyle="bold"/>
+
+                <TextView
+                    android:id="@+id/tvPointsDayFrom"
+                    android:onClick="evtBtPointsDayStart"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Data inicial"
+                    android:clickable="true"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="até"
+                    android:textStyle="bold"/>
+                <TextView
+                    android:id="@+id/tvPointsDayTo"
+                    android:onClick="evtBtPointsDayEnd"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:text="Data final"
+                    android:clickable="true"/>
+                <Button
+                    android:id="@+id/btPointsDayGo"
+                    android:onClick="evtBtPointsDaygo"
+                    android:text="@string/bt_pointsDay_go"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="35dp"
+                    android:textAppearance="?android:attr/textAppearanceSmall" />
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp">
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="0dp"
+                    android:layout_weight="3"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:text="Nome" />
+
+                <TextView
+                    android:id="@+id/tvLoses"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="Derrotas" />
+
+                <TextView
+                    android:id="@+id/tvPtTotal"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="Gatos" />
+
+                <TextView
+                    android:id="@+id/tvPtCat"
+                    android:layout_width="0dp"
+                    android:layout_weight="2"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:text="Pontos" />
+            </TableRow>
+
+            <ListView
+                android:id="@+id/lvJogadores"
+                android:layout_width="match_parent"
+                android:layout_height="404dp" >
+
+            </ListView>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
