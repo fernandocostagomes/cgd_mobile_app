@@ -82,100 +82,67 @@ public class DbHelper extends SQLiteOpenHelper
    }
 
    // ........Cadastrar Grupo......................
-   public void insertGrupo( Grupo p_grupo )
-   {
+   public void insertGrupo( Grupo p_grupo ){
       SQLiteDatabase db = getWritableDatabase();
-
       ContentValues cv = new ContentValues();
-
       cv.put( "nomeGrupo", p_grupo.getNomeGrupo() );
       cv.put( "senhaGrupo", p_grupo.getSenhaGrupo() );
       cv.put( "dataGrupo", p_grupo.getDataGrupo().toString() );
       cv.put( "telefoneGrupo", p_grupo.getSenhaGrupo() );
-
       db.insert( "Grupo", null, cv );
-
       db.close();
    }
 
    // ........Inserir Parametro de Grupo.............
-   public void inserirParametroGrupo( int p_valor )
-   {
+   public void inserirParametroGrupo( int p_valor ){
       int idParametro = 1;
-
       SQLiteDatabase db = getWritableDatabase();
-
       String SqlInsertValorGrupo = "INSERT INTO Parametro VALUES(" + idParametro + "," + p_valor + ", 0);";
       db.execSQL( SqlInsertValorGrupo );
-
       db.execSQL( SqlInsertValorGrupo );
-
       db.close();
    }
 
    // ........Selecionar um Grupo por parametro......................
-   public Parametro selectUmParametro( int p_idParametro )
-   {
+   public Parametro selectUmParametro( int p_idParametro ){
       Parametro parametro = new Parametro();
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectUmParametro = "SELECT * FROM Parametro WHERE idParametro = '" + p_idParametro + "';";
-
       db.rawQuery( SqlSelectUmParametro, null );
-
       Cursor c = db.rawQuery( SqlSelectUmParametro, null );
-
-      if ( c.moveToFirst() )
-      {
-
+      if ( c.moveToFirst() ){
          parametro.setIdParametro( c.getInt( 0 ) );
          parametro.setNomeParametro( c.getString( 1 ) );
          parametro.setValorParametro( c.getInt( 2 ) );
       }
-
       c.close();
-
       return parametro;
    }
 
    // ........Alterar Parametro de Grupo.............
-   public void alterarParametroGrupo( int p_valor )
-   {
+   public void alterarParametroGrupo( int p_valor ){
       int idParametro = 1;
       SQLiteDatabase db = getWritableDatabase();
-
       String SqlUpdateValorGrupo =
          "UPDATE Parametro set ValorParametro = '" + p_valor + "' WHERE idParametro = '" + idParametro + "';";
-
       db.execSQL( SqlUpdateValorGrupo );
-
       db.close();
    }
 
    // ........Listar todos os Grupos..............
-   public List<Grupo> selectTodosGrupos()
-   {
+   public List<Grupo> selectTodosGrupos(){
       List<Grupo> listgrupo = new ArrayList<Grupo>();
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectTodosGrupos = "SELECT * FROM Grupo";
-
       Cursor c = db.rawQuery( SqlSelectTodosGrupos, null );
-
-      if ( c.moveToFirst() )
-      {
-         do
-         {
+      if ( c.moveToFirst() ){
+         do{
             Grupo grupo = new Grupo();
-
             grupo.setIdGrupo( c.getInt( 0 ) );
             grupo.setNomeGrupo( c.getString( 1 ) );
             grupo.setSenhaGrupo( c.getString( 2 ) );
             grupo.setDataGrupo( Date.valueOf( c.getString( 3 ) ) );
             grupo.setTelefoneGrupo( c.getInt( 4 ) );
-
             listgrupo.add( grupo );
          } while ( c.moveToNext() );
       }
@@ -184,48 +151,31 @@ public class DbHelper extends SQLiteOpenHelper
    }
 
    // ........Listar um Grupo......................
-   public Grupo selectUmGrupo( String p_nomeGrupo )
-   {
+   public Grupo selectUmGrupo( String p_nomeGrupo ){
       Grupo grupo = new Grupo();
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectUmGrupo = "SELECT * FROM Grupo WHERE nomeGrupo = '" + p_nomeGrupo + "';";
-
       db.rawQuery( SqlSelectUmGrupo, null );
-
       Cursor c = db.rawQuery( SqlSelectUmGrupo, null );
-
-      if ( c.moveToFirst() )
-      {
+      if ( c.moveToFirst() ){
          grupo.setIdGrupo( c.getInt( 0 ) );
          grupo.setNomeGrupo( c.getString( 1 ) );
          grupo.setSenhaGrupo( c.getString( 2 ) );
          grupo.setDataGrupo( Date.valueOf( c.getString( 3 ) ) );
          grupo.setTelefoneGrupo( c.getInt( 4 ) );
-
       }
-
       c.close();
-
       return grupo;
    }
 
    // ........Listar um Jogador......................
-   public Jogador selectUmJogador( int p_id )
-   {
+   public Jogador selectUmJogador( int p_id ){
       Jogador jogador = new Jogador();
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectUmJogador = "SELECT * FROM Jogador WHERE idJogador = '" + p_id + "';";
-
       db.rawQuery( SqlSelectUmJogador, null );
-
       Cursor c = db.rawQuery( SqlSelectUmJogador, null );
-
-      if ( c.moveToFirst() )
-      {
+      if ( c.moveToFirst() ){
          jogador.setIdJogador( c.getInt( 0 ) );
          jogador.setNomeJogador( c.getString( 1 ) );
          jogador.setTelefoneJogador( c.getInt( 2 ) );
@@ -240,20 +190,13 @@ public class DbHelper extends SQLiteOpenHelper
    }
 
    // ........Listar um Jogador......................
-   public String selectNameJogador( int p_id )
-   {
+   public String selectNameJogador( int p_id ){
       String result = "";
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectUmJogador = "SELECT * FROM Jogador WHERE idJogador = '" + p_id + "';";
-
       db.rawQuery( SqlSelectUmJogador, null );
-
       Cursor c = db.rawQuery( SqlSelectUmJogador, null );
-
-      if ( c.moveToFirst() )
-      {
+      if ( c.moveToFirst() ){
          result = c.getString( 1 );
       }
       c.close();
@@ -261,39 +204,26 @@ public class DbHelper extends SQLiteOpenHelper
    }
 
    // ........Inserir Jogador......................
-   public void insertJogador( Jogador p_jogador )
-   {
+   public void insertJogador( Jogador p_jogador ){
       SQLiteDatabase db = getWritableDatabase();
-
       ContentValues cv = new ContentValues();
-
       cv.put( "nomeJogador", p_jogador.getNomeJogador() );
       cv.put( "telefoneGrupo", p_jogador.getTelefoneJogador() );
       cv.put( "emailJogador", p_jogador.getEmailJogador() );
       cv.put( "dataJogador", p_jogador.getDataJogador().toString() );
       cv.put( "idGrupo", p_jogador.getIdGrupo() );
-
       db.insert( "Jogador", null, cv );
-
       db.close();
    }
 
-   public List<Jogador> selectTodosJogadores()
-   {
+   public List<Jogador> selectTodosJogadores(){
       List<Jogador> listjogador = new ArrayList<Jogador>();
-
       SQLiteDatabase db = getReadableDatabase();
-
       String SqlSelectTodosJogadores = "SELECT * FROM Jogador";
-
       Cursor c = db.rawQuery( SqlSelectTodosJogadores, null );
-
-      if ( c.moveToFirst() )
-      {
-         do
-         {
+      if ( c.moveToFirst() ){
+         do{
             Jogador jogador = new Jogador();
-
             jogador.setIdJogador( c.getInt( 0 ) );
             jogador.setNomeJogador( c.getString( 1 ) );
             jogador.setTelefoneJogador( c.getInt( 2 ) );
@@ -301,7 +231,6 @@ public class DbHelper extends SQLiteOpenHelper
             jogador.setDataJogador( Date.valueOf( c.getString( 4 ) ) );
             jogador.setIdGrupo( c.getInt( 5 ) );
             jogador.setGatoJogador( c.getInt( 6 ) );
-
             listjogador.add( jogador );
          } while ( c.moveToNext() );
       }
@@ -309,51 +238,36 @@ public class DbHelper extends SQLiteOpenHelper
       return listjogador;
    }
 
-   public List<Pontos> selectPointsDay(int p_idGrupo )
-   {
+   public List<Pontos> selectPointsDay(int p_idGrupo ){
       List<Pontos> listPoint = new ArrayList<Pontos>();
-
       SQLiteDatabase db = getReadableDatabase();
-
       // select * from Point where datetime([dataPoint], 'unixepoch') between '2015-09-15 12:39:40' and '2015-09-15
       // 12:39:45';
-
       String SqlSelectPointDay = "select * from Point where datetime([dataPoint]/1000, 'unixepoch') between  '" +
          new Date( System.currentTimeMillis() ) + "' and '" + new Date( System.currentTimeMillis() + 86400000 ) + "'";
       SqlSelectPointDay = SqlSelectPointDay.concat( ";" );
-
       Cursor c = db.rawQuery( SqlSelectPointDay, null );
       Log.i( "", c.toString() );
-
-      if ( c.moveToFirst() )
-      {
-         do
-         {
+      if ( c.moveToFirst() ){
+         do{
             Pontos point = new Pontos();
-
             point.setIdPoint( c.getInt( 0 ) );
-
             long teste = c.getLong( 1 );
-
             point.setDtmPoint( new Date( teste ) );
             point.setIdJogador1( c.getInt( 2 ) );
             point.setIdJogador2( c.getInt( 3 ) );
             point.setQtdPoint( c.getInt( 4 ) );
             point.setIdGato1(c.getInt(5));
             point.setIdGato2(c.getInt(6));
-
             listPoint.add( point );
          } while ( c.moveToNext() );
       }
       db.close();
-
       return listPoint;
    }
 
-
-   public List<Pontos> selectPointsDayForPlayer(int p_idGrupo, String p_dateTimeStart, String p_dateTimeEnd,
-                                                int p_jogadorId )
-   {
+   public List<Pontos> selectPointsDayForPlayer(int p_idGrupo, String p_dateTimeStart,
+                                                String p_dateTimeEnd, int p_jogadorId ){
       List<Pontos> listajogador = new ArrayList<Pontos>();
 
       SQLiteDatabase db = getReadableDatabase();
@@ -403,10 +317,8 @@ public class DbHelper extends SQLiteOpenHelper
       Cursor c = db.rawQuery( SqlSelectJogadoresGrupo, null );
       Log.i( "", c.toString() );
 
-      if ( c.moveToFirst() )
-      {
-         do
-         {
+      if ( c.moveToFirst() ){
+         do{
             Pontos points = new Pontos();
             points.setIdPoint( c.getInt( 0 ) );
             long teste = c.getLong( 1 );
@@ -425,8 +337,7 @@ public class DbHelper extends SQLiteOpenHelper
       return listPoints;
    }
 
-   public List<Jogador> selectJogadoresGrupo( int p_idGrupo )
-   {
+   public List<Jogador> selectJogadoresGrupo( int p_idGrupo ){
       List<Jogador> listajogador = new ArrayList<Jogador>();
 
       SQLiteDatabase db = getReadableDatabase();
@@ -441,10 +352,8 @@ public class DbHelper extends SQLiteOpenHelper
       Cursor c = db.rawQuery( SqlSelectJogadoresGrupo, null );
       Log.i( "", c.toString() );
 
-      if ( c.moveToFirst() )
-      {
-         do
-         {
+      if ( c.moveToFirst() ){
+         do{
             Jogador jogador = new Jogador();
 
             jogador.setIdJogador( c.getInt( 0 ) );

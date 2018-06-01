@@ -1,4 +1,0 @@
-#Tue Jan 02 09:57:14 BRST 2018
-base.0=C\:\\Users\\fernando.gomes\\workspace\\CGD\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\40
-path.0=classes.dex
-renamed.0=classes.dex

@@ -2,9 +2,7 @@ package br.com.fgomes.cgd.utils;
 
 import java.util.*;
 
-public class ItensListViewInicio implements Comparable<ItensListViewInicio>
-{
-
+public class ItensListViewInicio{
    /** String para o textView que indicara o Name*/
    public String m_name;
    /** String para o textView que indicara o Total de pontos menos os gatos*/
@@ -18,47 +16,9 @@ public class ItensListViewInicio implements Comparable<ItensListViewInicio>
    /** int para o textView que indicara o total de vitorias*/
    public int m_wins;
 
-   public int compareToCat(ItensListViewInicio p_item) {
+   public ItensListViewInicio (){}
 
-      if (Integer.valueOf(this.getM_gatos()) > Integer.valueOf(p_item.getM_gatos())) {
-         return -1;
-      }
-      if (Integer.valueOf(this.getM_gatos()) < Integer.valueOf(p_item.getM_gatos())) {
-         return 1;
-      }
-      return 0;
-   }
-
-   public int compareToLoses(ItensListViewInicio p_item) {
-
-      if (this.getM_loses() > p_item.getM_loses()) {
-         return -1;
-      }
-      if (this.getM_loses() < p_item.getM_loses()) {
-         return 1;
-      }
-      return 0;
-   }
-
-   @Override
-   public int compareTo(ItensListViewInicio p_item) {
-      compareToCat(p_item);
-      compareToLoses(p_item);
-      if (this.getM_total_pontos() > p_item.getM_total_pontos()) {
-         return -1;
-      }
-      if (this.getM_total_pontos() < p_item.getM_total_pontos()) {
-         return 1;
-      }
-      return 0;
-   }
-
-   public ItensListViewInicio()
-   {
-   }
-
-   public ItensListViewInicio( String p_name, String p_ptTotal, String p_ptCat, int p_total, int p_loses, int p_wins )
-   {
+   public ItensListViewInicio( String p_name, String p_ptTotal, String p_ptCat, int p_total, int p_loses, int p_wins ){
       this.m_name = p_name;
       this.m_pontos = p_ptTotal;
       this.m_gatos = p_ptCat;

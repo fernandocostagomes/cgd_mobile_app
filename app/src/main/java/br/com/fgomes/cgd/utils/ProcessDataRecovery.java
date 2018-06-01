@@ -8,7 +8,7 @@ import java.util.List;
 import android.os.Environment;
 
 /**
- * Classe respons�vel por recuperar os dados do aplicativo (Ex: Banco de dados; Log).
+ * Classe responsavel por recuperar os dados do aplicativo (Ex: Banco de dados; Log).
  * 
  * @author Rodrigo.Gurgel / Flavio.Aguiar
  *
@@ -16,47 +16,41 @@ import android.os.Environment;
 public class ProcessDataRecovery
 {
 
-   /** Nome da pasta de destino, que ficar� localizada dentro do cart�o de mem�ria. */
+   /** Nome da pasta de destino, que ficara localizada dentro do cartao de memoria. */
    private String m_destinationFolderName = "cgd_recovery/";
 
-   /** Lista de arquivos a serem exportados para uma pasta no cart�o de mem�ria. */
+   /** Lista de arquivos a serem exportados para uma pasta no cartao de memoria. */
    private List<File> m_filesToBeExported = new ArrayList<File>();
 
    /**
-    * M�todo respons�vel por exportar os arquivos, contidos na lista de arquivos m_filesToBeExported (consulte o m�todo
+    * Metodo responsavel por exportar os arquivos, contidos na lista de arquivos m_filesToBeExported (consulte o metodo
     * <b>addFileToBeExported(File)</b> )
-    * Caso o cart�o de mem�ria N�O esteja montado e com permiss�o de 'leitura e escrita', os arquivos n�o ser�o
+    * Caso o cartao de memoria Nao esteja montado e com permissao de 'leitura e escrita', os arquivos nao serao
     * exportados.
     */
    public boolean exportFilesToSdCard()
    {
       boolean ret = false;
-      if ( android.os.Environment.getExternalStorageState().equals( android.os.Environment.MEDIA_MOUNTED ) )
-      {
+      if ( android.os.Environment.getExternalStorageState().equals( android.os.Environment.MEDIA_MOUNTED ) ){
          String destPath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator
                   + m_destinationFolderName;
-
          File destFile;
          File sourceFile;
-
-         for ( int i = 0; i < m_filesToBeExported.size(); i++ )
-         {
+         for ( int i = 0; i < m_filesToBeExported.size(); i++ ){
             sourceFile = m_filesToBeExported.get( i );
-            if ( sourceFile.exists() )
-            {
+            if ( sourceFile.exists() ){
                destFile = new File( destPath + sourceFile.getName() );
                ret = FileUtils.copyFile( sourceFile, destFile );
             }
          }
       }
-
       return ret;
 
    }
 
    /**
     * Retorna o nome da pasta de destino a serem copiados os arquivos.
-    * Esta pastar� estar� contida na pasta do cart�o de mem�ria (sdcard/)
+    * Esta pasta estara contida na pasta do cartao de memoria (sdcard/)
     * 
     * @return Retorna o nome da pasta de destino a serem copiados os arquivos.
     */

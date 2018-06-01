@@ -34,8 +34,7 @@ import br.com.fgomes.cgd.utils.DbHelper;
 import br.com.fgomes.cgd.utils.ItensListViewInicio;
 import br.com.fgomes.cgd.utils.ProcessExportManager;
 
-public class GrupoInicioActivity extends Activity implements OnItemClickListener
-{
+public class GrupoInicioActivity extends Activity implements OnItemClickListener{
    private DbHelper m_db = new DbHelper( this );
    private int m_retornoIdGrupo;
    private int m_idGrupo;
@@ -50,8 +49,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
    private String m_dateStart = "";
    private String m_dateEnd = "";
 
-   private void loadListStart()
-   {
+   private void loadListStart(){
       //Carregamento da lista de jogadores do grupo.
       m_listJogadores = new ArrayList<>( m_db.selectJogadoresGrupo( m_idGrupo ) );
       //Carregamento da lista de pontos de acordo com o mes corrente na data atual.
@@ -81,18 +79,15 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             //Value gato1.
             int gato2 = m_listPoints.get(x).getIdGato2();
             //Verificando se o jogador foi derrotado.
-            if(jogador == gato1 || jogador == gato2)
-            {
+            if(jogador == gato1 || jogador == gato2){
                losesTotal++;
                //Verificando se a partida foi gato.
-               if(m_listPoints.get(x).getQtdPoint() == 3)
-               {
+               if(m_listPoints.get(x).getQtdPoint() == 3){
                   catTotal++;
                }
             }
              //Verificando se o jogador ganhou ponto nesse ponto percorrido.
-            if(jogador == jogador1 || jogador == jogador2)
-            {
+            if(jogador == jogador1 || jogador == jogador2){
                int point = m_listPoints.get(x).getQtdPoint();
                 ptTotal = ptTotal + point;
                winsTotal++;
@@ -114,22 +109,18 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
          ilv.setM_wins(winsTotal);
           m_listItensInicio.add(ilv);
       }
-      Collections.sort(m_listItensInicio);
+      Collections.sort(m_listItensInicio, new comparatorDefault());
       loadListView();
    }
-   private void loadListView()
-   {
+   private void loadListView(){
       ArrayAdapter<ItensListViewInicio> adapter = new ArrayAdapter<ItensListViewInicio>( this,
-         R.layout.activity_inicio_itens, m_listItensInicio )
-      {
+         R.layout.activity_inicio_itens, m_listItensInicio ){
          @Override
-         public View getView( int p_position, View p_convertView, ViewGroup p_parent )
-         {
+         public View getView( int p_position, View p_convertView, ViewGroup p_parent ){
             // Use view holder patern to better performance with list view.
             ViewHolderItem viewHolder = null;
 
-            if ( p_convertView == null )
-            {
+            if ( p_convertView == null ){
                p_convertView = getLayoutInflater().inflate( R.layout.activity_inicio_itens, p_parent,
                   false );
 
@@ -146,8 +137,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                p_convertView.setTag( viewHolder );
             }
             // get saved holder
-            else
-            {
+            else{
                viewHolder = ( ViewHolderItem )p_convertView.getTag();
             }
 
@@ -170,11 +160,9 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             /**
              *  Evento de toque em um item da lista.
              */
-            viewHolder.textViewName.setOnClickListener( new View.OnClickListener()
-            {
+            viewHolder.textViewName.setOnClickListener( new View.OnClickListener(){
                @Override
-               public void onClick( View p_view )
-               {
+               public void onClick( View p_view ){
                   final int idJogador = m_listJogadores.get( itenListJogador ).getIdJogador();
                   final int idGrupo2 = m_listJogadores.get( itenListJogador ).getIdGrupo();
 
@@ -183,12 +171,9 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                   dialogo.setTitle( "Opcoes" );
                   dialogo.setMessage( "Adicione um gato ou Edite um usuario!" );
                   dialogo.setPositiveButton( "Detalhes Ponto",
-                     new DialogInterface.OnClickListener()
-                     {
+                     new DialogInterface.OnClickListener(){
                         @Override
-                        public void onClick( DialogInterface dialog,
-                           int which )
-                        {
+                        public void onClick( DialogInterface dialog, int which ){
                             Intent it = new Intent( getBaseContext(), ConsultaPontoJogadorActivity.class );
                             it.putExtra( "envioIdJogador", idJogador );
                             it.putExtra( "envioIdGrupo", idGrupo2 );
@@ -196,11 +181,9 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                             finish();
                         }
                      } );
-                  dialogo.setNegativeButton( "Grafico", new DialogInterface.OnClickListener()
-                  {
+                  dialogo.setNegativeButton( "Grafico", new DialogInterface.OnClickListener(){
                      @Override
-                     public void onClick( DialogInterface dialog, int which )
-                     {
+                     public void onClick( DialogInterface dialog, int which ){
                         Intent it = new Intent( getBaseContext(), GraficoPontosDiaActivity.class );
                         it.putExtra( "envioIdJogador", idJogador );
                         it.putExtra( "envioIdGrupo", idGrupo2 );
@@ -214,9 +197,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
             return p_convertView;
          }
-
-         final class ViewHolderItem
-         {
+         final class ViewHolderItem{
             TextView textViewName;
             TextView textViewTotal;
             TextView textViewPtCat;
@@ -228,13 +209,10 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       m_list.setAdapter( adapter );
    }
 
-   private void takeScreenshot()
-   {
+   private void takeScreenshot(){
       Date now = new Date();
       android.text.format.DateFormat.format( "yyyy-MM-dd_hh:mm:ss", now );
-
-      try
-      {
+      try{
          // image naming and path to include sd card appending name you choose for file
          String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
 
@@ -254,29 +232,24 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
          openScreenshot( imageFile );
       }
-      catch ( Throwable e )
-      {
+      catch ( Throwable e ){
          // Several error may come out with file handling or DOM
          e.printStackTrace();
       }
    }
 
-   private void openScreenshot( File imageFile )
-   {
+   private void openScreenshot( File imageFile ){
       PackageManager packageManager = getPackageManager();
       Intent intent = new Intent( Intent.ACTION_SEND );
       intent.setType( "text/plain" );
       List<ResolveInfo> resolvedInfoList = packageManager.queryIntentActivities( intent, 0 );
-      for ( ResolveInfo resolveInfo : resolvedInfoList )
-      {
-         if ( resolveInfo.activityInfo.packageName.startsWith( "com.whatsapp" ) )
-         {
+      for ( ResolveInfo resolveInfo : resolvedInfoList ){
+         if ( resolveInfo.activityInfo.packageName.startsWith( "com.whatsapp" ) ){
             intent.setClassName( resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.name );
             intent.addCategory( Intent.CATEGORY_LAUNCHER );
             break;
          }
       }
-
       intent.setPackage( "com.whatsapp" );// com.whatsapp
       intent.setType( "image/*" );
       Uri uri = Uri.fromFile( imageFile );
@@ -284,8 +257,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       startActivity( Intent.createChooser( intent, "Compartilhar imagem" ) );
    }
 
-   private void CheckMonthYear()
-   {
+   private void CheckMonthYear(){
       Date data = new Date();
       Calendar c = Calendar.getInstance();
       c.setTime(data);
@@ -294,8 +266,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       m_month = formatMonth.format(c.getTime());
       Format formatYear = new SimpleDateFormat("yyyy");
       m_year = formatYear.format(c.getTime());
-    switch (m_month)
-    {
+    switch (m_month){
        case "01":
           setTitle("Pontos Dominó - Janeiro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
@@ -359,26 +330,19 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
     }
    }
 
-   public GrupoInicioActivity()
-   {
-   }
+   public GrupoInicioActivity(){}
 
    @Override
-   protected void onCreate( Bundle savedInstanceState )
-   {
+   protected void onCreate( Bundle savedInstanceState ){
       super.onCreate( savedInstanceState );
       setContentView( R.layout.activity_grupo_inicio );
       m_view = getWindow().getDecorView().findViewById( android.R.id.content );
-
       CheckMonthYear();
-
       Intent iDadosRecebidos = getIntent();
 
-      if ( iDadosRecebidos != null )
-      {
+      if ( iDadosRecebidos != null ){
          Bundle parametrosRecebidos = iDadosRecebidos.getExtras();
-         if ( parametrosRecebidos != null )
-         {
+         if ( parametrosRecebidos != null ){
             // vindo da activity main
             m_retornoIdGrupo = parametrosRecebidos.getInt( "envioIdGrupo" );
          }
@@ -386,47 +350,38 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       // ...Buscando o valor do idGrupo cadastrado no Banco / Parametros
       Parametro param = m_db.selectUmParametro( m_idParametro );
       int valorIdGrupo = param.getValorParametro();
-
       if ( m_retornoIdGrupo > 0 )
          m_idGrupo = m_retornoIdGrupo;
       else
          m_idGrupo = valorIdGrupo;
-
       m_list = findViewById( R.id.lvJogadores );
-
       loadListStart();
    }
 
    @Override
-   public boolean onCreateOptionsMenu( Menu menu )
-   {
+   public boolean onCreateOptionsMenu( Menu menu ){
       // Inflate the menu; this adds items to the action bar if it is present.
       getMenuInflater().inflate( R.menu.grupo_inicio, menu );
       return true;
    }
 
    @Override
-   public boolean onOptionsItemSelected( MenuItem p_item )
-   {
+   public boolean onOptionsItemSelected( MenuItem p_item ){
       int id = p_item.getItemId();
       // Handle action bar item clicks here. The action bar will
       // automatically handle clicks on the Home/Up button, so long
       // as you specify a parent activity in AndroidManifest.xml.
-      switch ( id )
-      {
+      switch ( id ){
          case R.id.action_settings:
             ProcessExportManager exportManager = new ProcessExportManager();
-
-            if ( exportManager.makeDataExports( this ) )
-            {
+            if ( exportManager.makeDataExports( this ) ){
                /*
                 * Mensagem de arquivos exportados com sucesso
                 */
                AlertDialog alertDialog = new AlertDialog.Builder( GrupoInicioActivity.this )
                   .setIcon( android.R.drawable.ic_dialog_alert )
                   .setTitle( R.string.app_name ).setMessage( R.string.info_successExport )
-                  .setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener()
-                  {
+                  .setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener(){
                      @Override
                      public void onClick( DialogInterface dialog, int which )
                      {
@@ -435,21 +390,18 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                   } ).show();
             }
          break;
-
          case R.id.action_points:
             Intent it2 = new Intent( getBaseContext(), PartidasMesActivity.class );
             it2.putExtra( "envioIdGrupo", m_idGrupo );
             startActivity( it2 );
             finish();
          break;
-
          case R.id.action_winners:
             Intent it3 = new Intent( getBaseContext(), WinnersActivity.class );
             it3.putExtra( "envioIdGrupo", m_idGrupo );
             startActivity( it3 );
             finish();
             break;
-
          case R.id.action_out:
             // Create a object SharedPreferences from getSharedPreferences("name_file",MODE_PRIVATE) of Context
             SharedPreferences pref;
@@ -471,25 +423,21 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
          break;
       }
       return super.onOptionsItemSelected( p_item );
-
    }
 
-   public void evtBtPointsDay( View p_view )
-   {
+   public void evtBtPointsDay( View p_view ){
       Intent intent = new Intent( this, PontosDiaActivity.class );
       intent.putExtra( "idGrupo", m_retornoIdGrupo );
       startActivity( intent );
    }
 
-   public void evtBtCadastrarJogador( View p_view )
-   {
+   public void evtBtCadastrarJogador( View p_view ){
       Intent intent = new Intent( this, CadastroJogadorActivity.class );
       intent.putExtra( "idGrupo", m_retornoIdGrupo );
       startActivity( intent );
    }
 
-   public void evtBtCheckPoint( View p_view )
-   {
+   public void evtBtCheckPoint( View p_view ){
       Intent it = new Intent( getBaseContext(), MarcarPontoActivity.class );
       it.putExtra( "envioIdJogador", 0 );
       it.putExtra( "envioIdGrupo", m_retornoIdGrupo );
@@ -501,15 +449,47 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
     * Ação realizada ao clicar no botão VOLTAR do dispositivo.
     */
    @Override
-   public void onBackPressed()
-   {
+   public void onBackPressed(){
       super.onBackPressed();
    }
 
    @Override
-   public void onItemClick( AdapterView<?> parent, View view, int position, long id )
-   {
+   public void onItemClick( AdapterView<?> parent, View view, int position, long id ){
       // TODO Auto-generated method stub
+   }
 
+   public class comparatorDefault implements Comparator<ItensListViewInicio>{
+      @Override
+      public int compare(ItensListViewInicio t1, ItensListViewInicio t2) {
+         if (t1.getM_total_pontos() > t2.getM_total_pontos())
+            return -1;
+         else if (t1.getM_total_pontos() < t2.getM_total_pontos())
+            return +1;
+         else return compareCats(t1,t2);
+      }
+
+      public int compareCats(ItensListViewInicio t1, ItensListViewInicio t2) {
+         if (Integer.valueOf(t1.getM_gatos()) < Integer.valueOf(t2.getM_gatos()))
+            return -1;
+         else if (Integer.valueOf(t1.getM_gatos()) > Integer.valueOf(t2.getM_gatos()))
+            return +1;
+         else return compareWins(t1,t2);
+      }
+
+      public int compareWins(ItensListViewInicio t1, ItensListViewInicio t2) {
+         if (t1.getM_wins() > t2.getM_wins())
+            return -1;
+         else if (t1.getM_wins() < t2.getM_wins())
+            return +1;
+         else return compareLoses(t1,t2);
+      }
+
+      public int compareLoses(ItensListViewInicio t1, ItensListViewInicio t2) {
+         if (t1.getM_loses() > t2.getM_loses())
+            return -1;
+         else if (t1.getM_loses() < t2.getM_loses())
+            return +1;
+         else return 0;
+      }
    }
 }
