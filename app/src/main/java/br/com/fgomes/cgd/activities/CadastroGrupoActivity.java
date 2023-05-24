@@ -78,7 +78,6 @@ public class CadastroGrupoActivity extends Activity
 
 		String senhaGrupo = senha.getText().toString();
 		String contraSenhaGrupo = contraSenha.getText().toString();
-      String stringTelefone = PhoneNumberUtils.formatNumber( m_telefone.getText().toString() ).replaceAll( "\\s", "" );
 
 		// ..........Comparar a Senha e contraSenha..........
       if ( senhaGrupo.equals( contraSenhaGrupo ) )
@@ -87,7 +86,7 @@ public class CadastroGrupoActivity extends Activity
          valor.setNomeGrupo( nome.getText().toString() );
          valor.setSenhaGrupo( senha.getText().toString() );
          valor.setDataGrupo( new Date( System.currentTimeMillis() ) );
-         valor.setTelefoneGrupo( Long.parseLong( stringTelefone ) );
+         valor.setTelefoneGrupo( Long.valueOf( m_telefone.getText().toString()));
 
 			dbh.insertGrupo(valor);
          Toast.makeText( getApplicationContext(), "Grupo cadastro, por favor faca o Login!", Toast.LENGTH_LONG ).show();

@@ -3,6 +3,7 @@ package br.com.fgomes.cgd.activities;
 import java.sql.Date;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.*;
 import android.net.*;
@@ -19,8 +20,7 @@ import br.com.fgomes.cgd.objects.Jogador;
 import br.com.fgomes.cgd.objects.Parametro;
 import br.com.fgomes.cgd.utils.DbHelper;
 import br.com.fgomes.cgd.utils.EmailValidator;
-
-import static android.content.ContentValues.TAG;
+import br.com.fgomes.cgd.views.ToastSnack;
 
 public class CadastroJogadorActivity extends Activity
 {
@@ -28,6 +28,7 @@ public class CadastroJogadorActivity extends Activity
    private int m_idGrupo;
    private int m_idParametro = 1;
    private EditText m_nome, m_telefone, m_email;
+   private Context m_context;
 
    private static final String TAG = CadastroJogadorActivity.class.getSimpleName();
    private static final int REQUEST_CODE_PICK_CONTACTS = 1;
@@ -98,8 +99,11 @@ public class CadastroJogadorActivity extends Activity
 	@Override
    protected void onCreate( Bundle savedInstanceState )
    {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_cadastro_jogador);
+      setContentView(R.layout.activity_cadastro_jogador);
+
+      super.onCreate(savedInstanceState);
+
+      m_context = this;
 
       Intent iDadosRecebidos = getIntent();
 
@@ -117,6 +121,9 @@ public class CadastroJogadorActivity extends Activity
       m_telefone = ( EditText )findViewById( R.id.edCadastroTelefoneJogador );
       m_telefone.addTextChangedListener( new PhoneNumberFormattingTextWatcher() );
       m_email = ( EditText )findViewById( R.id.edCadastroEmailJogador );
+
+      ToastSnack.show(m_context, "teste" );
+
 	}
 
    @Override
@@ -180,6 +187,8 @@ public class CadastroJogadorActivity extends Activity
             jogador.setTelefoneJogador( Long.parseLong( StringtelefoneJogador ) );
 
             dbh.insertJogador( jogador );
+
+            ToastSnack.show(getApplicationContext(), "Jogador cadastrado");
 
             Toast.makeText( getApplicationContext(), "Jogador cadastrado!",
                      Toast.LENGTH_LONG ).show();
