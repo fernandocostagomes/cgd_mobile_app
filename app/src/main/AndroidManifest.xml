@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="br.com.fgomes.cgd"
-    android:versionCode="4"
-    android:versionName="4.0" >
-
-    <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="22" />
+    android:versionCode="5"
+    android:versionName="5.0" >
 
     <uses-permission android:name="com.android.launcher.permission.INSTALL_SHORTCUT" />
     <uses-permission android:name="android.permission.SEND_SMS" />
@@ -21,7 +16,7 @@
         android:theme="@style/AppTheme" >
         <activity
             android:name=".activities.MainActivity"
-            android:label="@string/app_name" >
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,7 +32,6 @@
         <activity
             android:name=".activities.GrupoInicioActivity"
             android:excludeFromRecents="true"
-            android:label="@string/app_name"
             android:noHistory="true" >
         </activity>
         <activity
@@ -73,13 +67,12 @@
             android:name=".activities.GraficoPontosDiaActivity"
             android:label="@string/title_activity_grafico_pontos_dia" >
         </activity>
-        <activity android:name="org.achartengine.GraphicalActivity" />
         <activity
-            android:name="br.com.fgomes.cgd.activities.PartidasMesActivity"
+            android:name=".activities.PartidasMesActivity"
             android:label="@string/title_activity_partidas_mes" >
         </activity>
         <activity
-            android:name="br.com.fgomes.cgd.activities.MarcarPontoActivity"
+            android:name=".activities.MarcarPontoActivity"
             android:label="@string/title_activity_point" >
         </activity>
         <activity
