@@ -332,6 +332,10 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
    public GrupoInicioActivity(){}
 
+   public void teste(){
+
+   }
+
    @Override
    protected void onCreate( Bundle savedInstanceState ){
       super.onCreate( savedInstanceState );
