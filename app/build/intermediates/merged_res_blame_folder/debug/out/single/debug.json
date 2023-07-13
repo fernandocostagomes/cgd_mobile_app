@@ -40,12 +40,12 @@
         "source": "br.com.fgomes.cgd.app-main-7:/menu/cadastro_jogador.xml"
     },
     {
-        "merged": "br.com.fgomes.cgd.app-merged_res-5:/menu_contatos_importar.xml.flat",
-        "source": "br.com.fgomes.cgd.app-main-7:/menu/contatos_importar.xml"
-    },
-    {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/menu_grupo_inicio.xml.flat",
         "source": "br.com.fgomes.cgd.app-main-7:/menu/grupo_inicio.xml"
+    },
+    {
+        "merged": "br.com.fgomes.cgd.app-merged_res-5:/menu_contatos_importar.xml.flat",
+        "source": "br.com.fgomes.cgd.app-main-7:/menu/contatos_importar.xml"
     },
     {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/layout_activity_grafico_pontos_dia.xml.flat",
@@ -96,12 +96,12 @@
         "source": "br.com.fgomes.cgd.app-main-7:/layout/activity_winners.xml"
     },
     {
-        "merged": "br.com.fgomes.cgd.app-merged_res-5:/menu_remover_gato.xml.flat",
-        "source": "br.com.fgomes.cgd.app-main-7:/menu/remover_gato.xml"
-    },
-    {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/drawable-xxhdpi_ic_launcher.png.flat",
         "source": "br.com.fgomes.cgd.app-main-7:/drawable-xxhdpi/ic_launcher.png"
+    },
+    {
+        "merged": "br.com.fgomes.cgd.app-merged_res-5:/menu_remover_gato.xml.flat",
+        "source": "br.com.fgomes.cgd.app-main-7:/menu/remover_gato.xml"
     },
     {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/layout_activity_ranking_cat.xml.flat",
@@ -128,12 +128,12 @@
         "source": "br.com.fgomes.cgd.app-main-7:/layout/activity_main.xml"
     },
     {
-        "merged": "br.com.fgomes.cgd.app-merged_res-5:/layout_activity_marcar_ponto.xml.flat",
-        "source": "br.com.fgomes.cgd.app-main-7:/layout/activity_marcar_ponto.xml"
-    },
-    {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/layout_activity_pontos_dia.xml.flat",
         "source": "br.com.fgomes.cgd.app-main-7:/layout/activity_pontos_dia.xml"
+    },
+    {
+        "merged": "br.com.fgomes.cgd.app-merged_res-5:/layout_activity_marcar_ponto.xml.flat",
+        "source": "br.com.fgomes.cgd.app-main-7:/layout/activity_marcar_ponto.xml"
     },
     {
         "merged": "br.com.fgomes.cgd.app-merged_res-5:/xml_pref_general.xml.flat",

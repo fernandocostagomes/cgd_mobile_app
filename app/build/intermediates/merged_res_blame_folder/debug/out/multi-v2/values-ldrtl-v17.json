@@ -4,7 +4,7 @@
             "outputFile": "br.com.fgomes.cgd.app-mergeDebugResources-3:/values-ldrtl-v17/values-ldrtl-v17.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Fernando\\.gradle\\caches\\transforms-3\\518595042001c54cb3e90735dd489b72\\transformed\\material-1.5.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
+                    "source": "C:\\Users\\fernando.gomes\\.gradle\\caches\\transforms-3\\d3648a1e5499879c8926fc225ce747de\\transformed\\material-1.5.0\\res\\values-ldrtl-v17\\values-ldrtl-v17.xml",
                     "from": {
                         "startLines": "2,3",
                         "startColumns": "4,4",

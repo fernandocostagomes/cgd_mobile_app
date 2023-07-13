@@ -376,6 +376,10 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       // automatically handle clicks on the Home/Up button, so long
       // as you specify a parent activity in AndroidManifest.xml.
       switch ( id ){
+
+         case R.id.action_login:
+            startActivity(new Intent(this, LoginActivity.class));
+            break;
          case R.id.action_settings:
             ProcessExportManager exportManager = new ProcessExportManager();
             if ( exportManager.makeDataExports( this ) ){

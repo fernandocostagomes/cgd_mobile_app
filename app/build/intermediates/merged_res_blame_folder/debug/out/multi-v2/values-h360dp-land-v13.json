@@ -4,7 +4,7 @@
             "outputFile": "br.com.fgomes.cgd.app-mergeDebugResources-3:/values-h360dp-land-v13/values-h360dp-land-v13.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Fernando\\.gradle\\caches\\transforms-3\\518595042001c54cb3e90735dd489b72\\transformed\\material-1.5.0\\res\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
+                    "source": "C:\\Users\\fernando.gomes\\.gradle\\caches\\transforms-3\\d3648a1e5499879c8926fc225ce747de\\transformed\\material-1.5.0\\res\\values-h360dp-land-v13\\values-h360dp-land-v13.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,7,8,9,10",
                         "startColumns": "4,4,4,4,4,4,4,4,4",

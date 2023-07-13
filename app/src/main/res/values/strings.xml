@@ -30,6 +30,7 @@
     <string name="btSalvarCadastroGrupo">Salvar</string>
     <string name="btSalvarCadastroJogador">Salvar</string>
     <string name="btImportarContatoAgenda">Importar Contato Telefone</string>
+    <string name="btImportarJogador">Importar jogador</string>
     <string name="title_activity_grupo_inicio">Grupo</string>
     <string name="btMarcarGato">Marcar Gato</string>
     <string name="btCadastrarJogador">Adicionar Jogador</string>
@@ -78,4 +79,5 @@
     <string name="bt_pointsDayStart">Início</string>
     <string name="bt_pointsDayEnd">Fim</string>
     <string name="bt_pointsDay_go">Pesquisar</string>
+    <string name="title_activity_login">LoginActivity</string>
 </resources>

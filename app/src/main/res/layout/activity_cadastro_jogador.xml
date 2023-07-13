@@ -111,4 +111,18 @@
             android:textAppearance="?android:attr/textAppearanceSmall" />
     </TableRow>
 
+    <TableRow
+        android:id="@+id/linha51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/btImportarJogadorOutroGrupo"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:onClick="evtImportarJogadorOutroGrupo"
+            android:text="@string/btImportarJogador"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
 </TableLayout>

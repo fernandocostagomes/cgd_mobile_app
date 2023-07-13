@@ -27,7 +27,19 @@ public class Jogador implements Comparable<Jogador>
       m_pointsDay = 0;
 	}
 
-   public int getIdJogador()
+    public Jogador(int m_idJogador, String m_nomeJogador, long m_telefoneJogador, String m_emailJogador, Date m_dataJogador, int m_idGrupo, int m_gatoJogador, int m_pointJogador, int m_pointsDay) {
+        this.m_idJogador = m_idJogador;
+        this.m_nomeJogador = m_nomeJogador;
+        this.m_telefoneJogador = m_telefoneJogador;
+        this.m_emailJogador = m_emailJogador;
+        this.m_dataJogador = m_dataJogador;
+        this.m_idGrupo = m_idGrupo;
+        this.m_gatoJogador = m_gatoJogador;
+        this.m_pointJogador = m_pointJogador;
+        this.m_pointsDay = m_pointsDay;
+    }
+
+    public int getIdJogador()
    {
 		return m_idJogador;
 	}

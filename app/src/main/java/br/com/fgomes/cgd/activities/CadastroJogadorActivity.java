@@ -1,9 +1,13 @@
 package br.com.fgomes.cgd.activities;
 
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.*;
 import android.net.*;
@@ -13,7 +17,9 @@ import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.telephony.PhoneNumberUtils;
 import android.util.*;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 import br.com.fgomes.cgd.R;
 import br.com.fgomes.cgd.objects.Jogador;
@@ -122,8 +128,6 @@ public class CadastroJogadorActivity extends Activity
       m_telefone.addTextChangedListener( new PhoneNumberFormattingTextWatcher() );
       m_email = ( EditText )findViewById( R.id.edCadastroEmailJogador );
 
-      ToastSnack.show(m_context, "teste" );
-
 	}
 
    @Override
@@ -207,10 +211,43 @@ public class CadastroJogadorActivity extends Activity
       }
 	}
 
-   public void evtBtImportarContatoAgenda( View p_view )
-   {
+   public void evtBtImportarContatoAgenda( View p_view ){
       startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), REQUEST_CODE_PICK_CONTACTS);
 	}
+
+    public void evtImportarJogadorOutroGrupo(View p_view){
+      //Lista de todos os jogadores
+       List<Jogador> listPlayers;
+       List<String> listPlayersName = new ArrayList<>();
+       DbHelper dbh = new DbHelper( this );
+       listPlayers = dbh.selectTodosJogadores();
+
+       for(Jogador playerName : listPlayers){
+          listPlayersName.add(playerName.getNomeJogador());
+       }
+
+       final Spinner spinner = new Spinner( this );
+       ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>( this,
+               android.R.layout.simple_spinner_item, listPlayersName );
+       ArrayAdapter<String> spinnerArrayAdapter = arrayAdapter;
+       spinnerArrayAdapter.setDropDownViewResource( android.R.layout.simple_spinner_item );
+       spinner.setAdapter( spinnerArrayAdapter );
+       new AlertDialog.Builder( this )
+               .setView( spinner )
+               .setPositiveButton( android.R.string.ok, new DialogInterface.OnClickListener(){
+                  @Override
+                  public void onClick( DialogInterface dialog, int which ){
+                     String jogador = spinner.getSelectedItem().toString();
+                     for(Jogador player : listPlayers){
+                        if(player.getNomeJogador().equals(jogador)){
+                           m_nome.setText(player.getNomeJogador());
+                           m_telefone.setText(String.valueOf(player.getTelefoneJogador()));
+                           m_email.setText(player.getEmailJogador());
+                        }
+                     }
+                  }
+               } ).show();
+    }
 
    @Override
    public void onBackPressed()

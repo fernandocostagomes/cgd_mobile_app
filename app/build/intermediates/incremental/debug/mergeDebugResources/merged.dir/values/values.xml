@@ -1475,11 +1475,17 @@
     <item name="action_bar_spinner" type="id"/>
     <item name="action_menu_divider" type="id"/>
     <item name="action_menu_presenter" type="id"/>
+    <item name="androidx_compose_ui_view_composition_context" type="id"/>
     <item name="androidx_window_activity_scope" type="id"/>
+    <item name="compose_view_saveable_id_tag" type="id"/>
+    <item name="consume_window_insets_tag" type="id"/>
     <item name="fragment_container_view_tag" type="id"/>
     <item name="ghost_view" type="id"/>
     <item name="ghost_view_holder" type="id"/>
+    <item name="hide_in_inspector_tag" type="id"/>
     <item name="home" type="id"/>
+    <item name="inspection_slot_table_set" type="id"/>
+    <item name="is_pooling_container_tag" type="id"/>
     <item name="item_touch_helper_previous_elevation" type="id"/>
     <item name="line1" type="id"/>
     <item name="line3" type="id"/>
@@ -1501,6 +1507,7 @@
     <item name="navigation_bar_item_large_label_view" type="id"/>
     <item name="navigation_bar_item_small_label_view" type="id"/>
     <item name="parent_matrix" type="id"/>
+    <item name="pooling_container_listener_holder_tag" type="id"/>
     <item name="progress_circular" type="id"/>
     <item name="progress_horizontal" type="id"/>
     <item name="row_index_key" type="id"/>
@@ -1545,9 +1552,11 @@
     <item name="view_offset_helper" type="id"/>
     <item name="view_transition" type="id"/>
     <id name="view_tree_lifecycle_owner"/>
+    <id name="view_tree_on_back_pressed_dispatcher_owner"/>
     <id name="view_tree_saved_state_registry_owner"/>
     <id name="view_tree_view_model_store_owner"/>
     <item name="visible_removing_fragment_view_tag" type="id"/>
+    <item name="wrapped_composition_tag" type="id"/>
     <integer name="abc_config_activityDefaultDur">220</integer>
     <integer name="abc_config_activityShortDur">150</integer>
     <integer name="app_bar_elevation_anim_duration">150</integer>
@@ -1656,6 +1665,7 @@
     <string name="btEntrar">Entrar</string>
     <string name="btEsqueciSenhaGrupo">Esqueci</string>
     <string name="btImportarContatoAgenda">Importar Contato Telefone</string>
+    <string name="btImportarJogador">Importar jogador</string>
     <string name="btLembrarSenhaGrupo">Lembrar</string>
     <string name="btMarcarGato">Marcar Gato</string>
     <string name="btPointsDay">Hoje</string>
@@ -1669,18 +1679,28 @@
     <string name="character_counter_pattern" translatable="false">%1$d/%2$d</string>
     <string name="chip_text">Chip text</string>
     <string name="clear_text_end_icon_content_description">Clear text</string>
+    <string name="close_drawer">"Close navigation menu"</string>
+    <string name="close_sheet">"Close sheet"</string>
+    <string name="collapsed">Collapsed</string>
     <string name="confirmeTelefone">Confirme o Telefone</string>
     <string name="criadorGrupo">Criador Grupo</string>
+    <string name="default_error_message">"Invalid input"</string>
+    <string name="default_popup_window_title" ns1:ignore="ExtraTranslation">"Pop-Up Window"</string>
+    <string name="dialog">"Dialog"</string>
+    <string name="dropdown_menu">"Dropdown menu"</string>
     <string name="enderecoGrupo">Endereco Grupo</string>
     <string name="enviarEmail">Enviar e-mail</string>
     <string name="enviarSms">Enviar SMS</string>
     <string name="error_icon_content_description">Error</string>
+    <string name="expanded">Expanded</string>
     <string name="exposed_dropdown_menu_content_description">Show dropdown menu</string>
     <string name="fab_transformation_scrim_behavior" translatable="false">com.google.android.material.transformation.FabTransformationScrimBehavior</string>
     <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
     <string name="hello_world">Hello world!</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
+    <string name="in_progress">In progress</string>
+    <string name="indeterminate">Partially checked</string>
     <string name="info_notBackup">Não foi possível fazer o backup do banco de dados.</string>
     <string name="info_successBackup">O backup do banco de dados foi gerado com sucesso.</string>
     <string name="info_successExport">Os arquivos foram exportados com sucesso para o cartão de memória.</string>
@@ -1769,8 +1789,12 @@
     <string description="Button text to indicate that the widget will save the user&apos;s selection [CHAR_LIMIT=16]" name="mtrl_timepicker_confirm">OK</string>
     <string name="nav_app_bar_navigate_up_description">Navigate up</string>
     <string name="nav_app_bar_open_drawer_description">Open navigation drawer</string>
+    <string name="navigation_menu">"Navigation menu"</string>
     <string name="new_series">New series</string>
     <string name="nomeGrupo">Grupo</string>
+    <string name="not_selected">Not selected</string>
+    <string name="off">Off</string>
+    <string name="on">On</string>
     <string name="out">Sair</string>
     <string name="password_toggle_content_description">Show password</string>
     <string name="path_password_eye" translatable="false">M12,4.5C7,4.5 2.73,7.61 1,12c1.73,4.39 6,7.5 11,7.5s9.27,-3.11 11,-7.5c-1.73,-4.39 -6,-7.5 -11,-7.5zM12,17c-2.76,0 -5,-2.24 -5,-5s2.24,-5 5,-5 5,2.24 5,5 -2.24,5 -5,5zM12,9c-1.66,0 -3,1.34 -3,3s1.34,3 3,3 3,-1.34 3,-3 -1.34,-3 -3,-3z</string>
@@ -1792,11 +1816,16 @@
     <string name="pref_title_sync_frequency">Sync frequency</string>
     <string name="pref_title_system_sync_settings">System sync settings</string>
     <string name="pref_title_vibrate">Vibrate</string>
+    <string name="range_end">"Range end"</string>
+    <string name="range_start">"Range start"</string>
     <string name="seach_cat">Consultar Gatos</string>
     <string name="search_menu_title">Search</string>
+    <string name="selected">Selected</string>
     <string name="send_print">Enviar print</string>
     <string name="status_bar_notification_info_overflow">999+</string>
+    <string name="tab">Tab</string>
     <string name="telefoneGrupo">Tel. Criador</string>
+    <string name="template_percent"><ns2:g id="percentage">%1$d</ns2:g> percent.</string>
     <string name="title_activity_cadastro_grupo">Cadastro de Grupo</string>
     <string name="title_activity_cadastro_jogador">Cadastro de Jogador</string>
     <string name="title_activity_cat_details">Gatos detalhados</string>
@@ -1809,6 +1838,7 @@
     <string name="title_activity_grafico_pontos_dia">Pontos Por Dia</string>
     <string name="title_activity_grupo_inicio">Grupo</string>
     <string name="title_activity_inicio">InicioActivity</string>
+    <string name="title_activity_login">LoginActivity</string>
     <string name="title_activity_marcar_gato">Marcar Gato</string>
     <string name="title_activity_partidas_mes">Partidas do mês</string>
     <string name="title_activity_point">Marcar Ponto</string>
@@ -1845,6 +1875,10 @@
     </style>
     <style name="AppTheme" parent="AppBaseTheme">
         
+    </style>
+    <style name="AppTheme.NoActionBar" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="windowNoTitle">true</item>
+        <item name="windowActionBar">false</item>
     </style>
     <style name="Base.AlertDialog.AppCompat" parent="android:Widget">
         <item name="android:layout">@layout/abc_alert_dialog_material</item>
@@ -4867,7 +4901,17 @@
     <style name="CardView.Light">
         <item name="cardBackgroundColor">@color/cardview_light_background</item>
     </style>
+    <style name="DialogWindowTheme">
+        <item name="android:windowClipToOutline">false</item>
+    </style>
     <style name="EmptyTheme"/>
+    <style name="FloatingDialogTheme">
+        <item name="android:windowIsFloating">false</item>
+    </style>
+    <style name="FloatingDialogWindowTheme">
+        <item name="android:windowClipToOutline">false</item>
+        <item name="android:dialogTheme">@style/FloatingDialogTheme</item>
+    </style>
     <style name="MaterialAlertDialog.Material3" parent="MaterialAlertDialog.MaterialComponents">
     <item name="enforceMaterialTheme">true</item>
     <item name="android:layout">@layout/m3_alert_dialog</item>
