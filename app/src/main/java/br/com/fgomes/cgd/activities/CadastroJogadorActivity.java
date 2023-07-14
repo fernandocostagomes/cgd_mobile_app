@@ -212,7 +212,8 @@ public class CadastroJogadorActivity extends Activity
 	}
 
    public void evtBtImportarContatoAgenda( View p_view ){
-      startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI), REQUEST_CODE_PICK_CONTACTS);
+      startActivityForResult(new Intent(Intent.ACTION_PICK, ContactsContract.Contacts.CONTENT_URI),
+              REQUEST_CODE_PICK_CONTACTS);
 	}
 
     public void evtImportarJogadorOutroGrupo(View p_view){
