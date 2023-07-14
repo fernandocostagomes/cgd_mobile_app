@@ -4,7 +4,7 @@
             "outputFile": "br.com.fgomes.cgd.app-mergeDebugResources-3:/values-watch-v21/values-watch-v21.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\fernando.gomes\\.gradle\\caches\\transforms-3\\6fbe83175489847180366575e746cefa\\transformed\\appcompat-1.4.1\\res\\values-watch-v21\\values-watch-v21.xml",
+                    "source": "C:\\Users\\Fernando\\.gradle\\caches\\transforms-3\\6fbe83175489847180366575e746cefa\\transformed\\appcompat-1.4.1\\res\\values-watch-v21\\values-watch-v21.xml",
                     "from": {
                         "startLines": "2,6,10",
                         "startColumns": "4,4,4",

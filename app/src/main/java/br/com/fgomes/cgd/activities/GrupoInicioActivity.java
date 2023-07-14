@@ -446,7 +446,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
    }
 
    public void evtBtCheckPoint( View p_view ){
-      Intent it = new Intent( getBaseContext(), MarcarPontoActivity.class );
+      Intent it = new Intent( getBaseContext(), MarcarPonto2Activity.class );
       it.putExtra( "envioIdJogador", 0 );
       it.putExtra( "envioIdGrupo", m_retornoIdGrupo );
       startActivity( it );

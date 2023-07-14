@@ -111,8 +111,8 @@
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/22d6ab7076abc2feb4966a688f452d92/transformed/jetified-kotlin-stdlib-common-1.8.21.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/db43099ff4fde0666d67fb2f7e1a650a/transformed/jetified-annotations-13.0.jar</arg>
                 <arg>$USER_HOME$/.gradle/caches/transforms-3/9cab3d1ad2736b5a7dba764c217bdb0b/transformed/jetified-annotation-experimental-1.1.0-api.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../../Android/android-sdk/platforms/android-33/android.jar</arg>
-                <arg>$MODULE_DIR$/../../../../../../Android/android-sdk/build-tools/33.0.1/core-lambda-stubs.jar</arg>
+                <arg>$USER_HOME$/AppData/Local/Android/Sdk/platforms/android-33/android.jar</arg>
+                <arg>$USER_HOME$/AppData/Local/Android/Sdk/build-tools/33.0.1/core-lambda-stubs.jar</arg>
               </args>
             </stringArg>
             <stringArg name="destination" arg="$MODULE_DIR$/../../../app/build/tmp/kotlin-classes/debugUnitTest" />
@@ -148,7 +148,7 @@
       <sourceFolder url="file://$MODULE_DIR$/../../../app/src/test/res" type="java-test-resource" />
     </content>
     <content url="file://$MODULE_DIR$/../../../app/src/testDebug" />
-    <orderEntry type="jdk" jdkName="Android API 33 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CGD.app.main" scope="TEST" />
     <orderEntry type="library" scope="TEST" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.8.21" level="project" />

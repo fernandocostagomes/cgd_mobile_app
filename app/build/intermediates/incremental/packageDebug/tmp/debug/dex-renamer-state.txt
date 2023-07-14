@@ -1,4 +1,4 @@
-#Thu Jul 13 17:22:37 BRT 2023
+#Fri Jul 14 00:51:20 BRT 2023
 path.4=13/classes.dex
 path.3=12/classes.dex
 path.2=10/classes.dex
@@ -7,19 +7,19 @@ path.7=classes2.dex
 path.6=2/classes.dex
 path.5=1/classes.dex
 path.0=classes.dex
-base.4=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
-base.3=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
-base.2=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
-base.1=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
-base.0=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
+base.4=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\13\\classes.dex
+base.3=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\12\\classes.dex
+base.2=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\10\\classes.dex
+base.1=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\0\\classes.dex
+base.0=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes.dex
 renamed.3=classes4.dex
 renamed.2=classes3.dex
 renamed.1=classes2.dex
 renamed.0=classes.dex
 renamed.7=classes8.dex
 renamed.6=classes7.dex
-base.7=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
+base.7=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeExtDexDebug\\classes2.dex
 renamed.5=classes6.dex
-base.6=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
+base.6=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\2\\classes.dex
 renamed.4=classes5.dex
-base.5=C\:\\SWP_MOBILE\\Projetos.Diversos\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex
+base.5=C\:\\DevProj\\CGD\\app\\build\\intermediates\\dex\\debug\\mergeProjectDexDebug\\1\\classes.dex

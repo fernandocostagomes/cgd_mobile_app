@@ -74,6 +74,9 @@
             android:name="br.com.fgomes.cgd.activities.MarcarPontoActivity"
             android:label="@string/title_activity_point" />
         <activity
+            android:name="br.com.fgomes.cgd.activities.MarcarPonto2Activity"
+            android:label="@string/title_activity_point" />
+        <activity
             android:name="br.com.fgomes.cgd.activities.PontosDiaActivity"
             android:label="@string/title_activity_pontos_perido" />
         <activity

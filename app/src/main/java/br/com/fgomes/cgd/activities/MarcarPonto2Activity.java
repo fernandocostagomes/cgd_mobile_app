@@ -27,6 +27,80 @@ public class MarcarPonto2Activity extends Activity
    private DbHelper mDbHelper;
    private List<Jogador> mListaJogadoresVencedores, mListaJogadoresPerdedores, getmListaJogadoresVencedoresSelecionados;
 
+   private View.OnClickListener clickJogadorCaro(final Button button, boolean pVencedor )
+   {
+      return v -> {
+         //Gera as duas listas atualizadas
+         List<CheckBox> checkboxesWon = generateListCheckBox(findViewById(R.id.ll_won));
+         List<CheckBox> checkboxesLose = generateListCheckBox(findViewById(R.id.ll_lose));
+
+         if(pVencedor){
+            CheckBox checkboxSel = (CheckBox) v;
+            int idJogador = button.getId();
+            // Faz um for na lista de perdedores e seta visibility false para o item escolhido
+            for(CheckBox checkbox : checkboxesLose){
+               if(checkbox.getId() == idJogador){
+                  if(checkboxSel.isChecked()){
+                     checkbox.setVisibility(View.GONE);
+                  }
+                  else
+                     checkbox.setVisibility(View.VISIBLE);
+               }
+            }
+            checkCountCheckBox(findViewById(R.id.ll_won));
+         }
+         else{
+            if( checkQtCheckBoxIsChecked(findViewById(R.id.ll_lose)) == 2){
+               checkCountCheckBox(findViewById(R.id.ll_lose));
+            }
+         }
+      };
+   }
+
+   private static List<CheckBox> generateListCheckBox(LinearLayout linearLayoutLose) {
+      List<CheckBox> checkboxesLose = new ArrayList<>();
+
+      // Lista de checkboxes de perdedores
+      for (int i = 0; i < linearLayoutLose.getChildCount(); i++) {
+         if (linearLayoutLose.getChildAt(i) instanceof CheckBox) {
+            checkboxesLose.add((CheckBox) linearLayoutLose.getChildAt(i));
+         }
+      }
+      return checkboxesLose;
+   }
+
+   private void checkCountCheckBox(LinearLayout linearLayoutLose){
+      List<CheckBox> checkboxes = generateListCheckBox(linearLayoutLose);
+      int checkedCount = 0;
+      for (CheckBox checkbox : checkboxes) {
+         if (checkbox.isChecked())
+            checkedCount++;
+      }
+      if(checkedCount == 2){
+         for(CheckBox checkbox : checkboxes){
+            if(!checkbox.isChecked()){
+               checkbox.setVisibility(View.GONE);
+            }
+         }
+      }else if(checkedCount < 2){
+         for(CheckBox checkbox : checkboxes){
+            if(!checkbox.isChecked()){
+               checkbox.setVisibility(View.VISIBLE);
+            }
+         }
+      }
+   }
+
+   private int checkQtCheckBoxIsChecked(LinearLayout linearLayoutLose){
+      List<CheckBox> checkboxes = generateListCheckBox(linearLayoutLose);
+      int checkedCount = 0;
+      for (CheckBox checkbox : checkboxes) {
+         if (checkbox.isChecked())
+            checkedCount++;
+      }
+      return checkedCount;
+   }
+
    private View.OnClickListener clickJogador(final Button button, boolean pVencedor )
    {
       return v -> {
@@ -50,15 +124,15 @@ public class MarcarPonto2Activity extends Activity
             }
             //Perdedor
             else{
-               if( mListaJogadoresVencedoresIds.size() < 2 ) {
+               if( mListaJogadoresVencedores.size() < 2 ) {
                   Toast.makeText(getApplicationContext(), "Primeiro marcar os ganhadores!",
                           Toast.LENGTH_SHORT).show();
                   ((CheckBox) v).setChecked(false);
                }
                else {
-                  if ( mListaJogadoresPerdedoresIds.size() < 2 ){
+                  if ( mListaJogadoresPerdedores.size() < 2 ){
                      Jogador jog = mDbHelper.selectUmJogador(button.getId());
-                     mListaJogadoresPerdedoresIds.add(jog.getIdJogador());
+                     mListaJogadoresPerdedores.add(mDbHelper.selectUmJogador(jog.getIdJogador()));
                   }
                   else{
                      Toast.makeText(getApplicationContext(), "É possível marcar apenas " +
@@ -70,28 +144,22 @@ public class MarcarPonto2Activity extends Activity
          }
          else
          {
-            List<Integer> listJogador = new ArrayList<>();
+            List<Jogador> listJogador = new ArrayList<>();
             Jogador jogadorId = mDbHelper.selectUmJogador(button.getId());
             if(pVencedor){
-               listJogador = mListaJogadoresVencedoresIds;
+               listJogador = mListaJogadoresVencedores;
                mListaJogadoresPerdedores.add(jogadorId);
             }
             else
-               listJogador = mListaJogadoresPerdedoresIds;
+               listJogador = mListaJogadoresPerdedores;
 
             for (int i = 0; i < listJogador.size(); i++) {
-               Integer value = listJogador.get(i);
+               Integer value = listJogador.get(i).getIdJogador();
                if (value == jogadorId.getIdJogador()) {
                   listJogador.remove(i);
                }
             }
 
-            if(pVencedor)
-               mListaJogadoresVencedoresIds = listJogador;
-            else
-               mListaJogadoresPerdedoresIds = listJogador;
-
-            montarListaPerdedores();
          }
       };
    }
@@ -124,7 +192,7 @@ public class MarcarPonto2Activity extends Activity
          checkBox = new CheckBox( this );
          checkBox.setId( Integer.parseInt( me.getKey().toString() ) );
          checkBox.setText( me.getValue().toString() );
-         checkBox.setOnClickListener( clickJogador( checkBox, pVencedor ) );
+         checkBox.setOnClickListener( clickJogadorCaro( checkBox, pVencedor ) );
          linearLayout.addView( checkBox );
       }
    }
@@ -217,8 +285,8 @@ public class MarcarPonto2Activity extends Activity
    }
 
    private void montandoListas(){
-      montarLista( true, mListaJogadoresVencedores );
-      montarLista( false, mListaJogadoresPerdedores );
+      montarLista( true );
+      montarLista( false );
    }
 
    @Override
