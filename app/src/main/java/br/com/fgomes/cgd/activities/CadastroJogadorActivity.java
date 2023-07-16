@@ -156,8 +156,8 @@ public class CadastroJogadorActivity extends Activity
          DbHelper dbh = new DbHelper( this );
 
          // ..........Telefone do Jogador..........
-         String StringtelefoneJogador = PhoneNumberUtils.formatNumber( m_telefone.getText().toString() ).replaceAll(
-                  "\\s", "" );
+         String StringtelefoneJogador =
+                 m_telefone.getText().toString().replaceAll("[^0-9]", "");
 
          // ..........IdGrupo - Passagem de param.
          Intent intent = getIntent();

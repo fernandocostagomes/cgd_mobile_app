@@ -3,7 +3,6 @@ package br.com.fgomes.cgd.objects;
 import java.sql.Date;
 
 public class Grupo {
-
    private int m_idGrupo;
    private String m_nomeGrupo;
    private String m_senhaGrupo;
