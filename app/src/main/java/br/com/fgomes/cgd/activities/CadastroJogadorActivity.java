@@ -192,8 +192,6 @@ public class CadastroJogadorActivity extends Activity
 
             dbh.insertJogador( jogador );
 
-            ToastSnack.show(getApplicationContext(), "Jogador cadastrado");
-
             Toast.makeText( getApplicationContext(), "Jogador cadastrado!",
                      Toast.LENGTH_LONG ).show();
 
