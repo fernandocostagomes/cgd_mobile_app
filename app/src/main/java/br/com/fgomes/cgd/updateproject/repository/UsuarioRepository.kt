@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.repository
 
 import androidx.annotation.WorkerThread
 import br.com.fgomes.cgd.updateproject.dao.UsuarioDao
-import br.com.fgomes.cgd.updateproject.data.Usuario
+import br.com.fgomes.cgd.updateproject.entity.Usuario
 
 class UsuarioRepository(private val usuarioDao: UsuarioDao) {
     /**

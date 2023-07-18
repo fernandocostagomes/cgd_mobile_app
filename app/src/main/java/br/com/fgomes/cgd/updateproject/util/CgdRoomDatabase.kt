@@ -11,13 +11,13 @@ import br.com.fgomes.cgd.updateproject.dao.PartidaDao
 import br.com.fgomes.cgd.updateproject.dao.PermissoesDao
 import br.com.fgomes.cgd.updateproject.dao.PontuacaoDao
 import br.com.fgomes.cgd.updateproject.dao.UsuarioDao
-import br.com.fgomes.cgd.updateproject.data.Configuracoes
-import br.com.fgomes.cgd.updateproject.data.Grupo
-import br.com.fgomes.cgd.updateproject.data.GrupoUsuario
-import br.com.fgomes.cgd.updateproject.data.Partida
-import br.com.fgomes.cgd.updateproject.data.Permissoes
-import br.com.fgomes.cgd.updateproject.data.Pontuacao
-import br.com.fgomes.cgd.updateproject.data.Usuario
+import br.com.fgomes.cgd.updateproject.entity.Configuracoes
+import br.com.fgomes.cgd.updateproject.entity.Grupo
+import br.com.fgomes.cgd.updateproject.entity.GrupoUsuario
+import br.com.fgomes.cgd.updateproject.entity.Partida
+import br.com.fgomes.cgd.updateproject.entity.Permissoes
+import br.com.fgomes.cgd.updateproject.entity.Pontuacao
+import br.com.fgomes.cgd.updateproject.entity.Usuario
 import kotlin.reflect.KClass
 
 // Annotates class to be a Room Database with a table (entity) of the Word class

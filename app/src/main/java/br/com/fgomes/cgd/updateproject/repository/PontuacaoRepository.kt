@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.repository
 
 import androidx.annotation.WorkerThread
 import br.com.fgomes.cgd.updateproject.dao.PontuacaoDao
-import br.com.fgomes.cgd.updateproject.data.Pontuacao
+import br.com.fgomes.cgd.updateproject.entity.Pontuacao
 
 class PontuacaoRepository(private val pontuacaoDao: PontuacaoDao) {
 

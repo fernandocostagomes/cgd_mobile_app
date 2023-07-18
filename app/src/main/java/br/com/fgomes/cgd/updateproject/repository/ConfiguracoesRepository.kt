@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.repository
 
 import androidx.annotation.WorkerThread
 import br.com.fgomes.cgd.updateproject.dao.ConfiguracoesDao
-import br.com.fgomes.cgd.updateproject.data.Configuracoes
+import br.com.fgomes.cgd.updateproject.entity.Configuracoes
 
 class ConfiguracoesRepository(private val configuracoesDao: ConfiguracoesDao) {
 

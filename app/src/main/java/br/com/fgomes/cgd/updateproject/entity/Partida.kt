@@ -1,10 +1,12 @@
-package br.com.fgomes.cgd.updateproject.data
+package br.com.fgomes.cgd.updateproject.entity
 
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 import java.util.Date
 
 @Entity
 data class Partida(
+    @PrimaryKey(autoGenerate = true)
     val idPartida: Int,
     val idUsuario1Partida: Int,
     val idUsuario2Partida: Int,

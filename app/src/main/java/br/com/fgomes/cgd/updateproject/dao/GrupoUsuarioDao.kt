@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.dao
 
 import androidx.room.Dao
 import androidx.room.Query
-import br.com.fgomes.cgd.updateproject.data.GrupoUsuario
+import br.com.fgomes.cgd.updateproject.entity.GrupoUsuario
 import kotlinx.coroutines.flow.Flow
 
 @Dao

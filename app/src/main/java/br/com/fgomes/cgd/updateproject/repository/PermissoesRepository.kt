@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.repository
 
 import androidx.annotation.WorkerThread
 import br.com.fgomes.cgd.updateproject.dao.PermissoesDao
-import br.com.fgomes.cgd.updateproject.data.Permissoes
+import br.com.fgomes.cgd.updateproject.entity.Permissoes
 
 class PermissoesRepository(private val permissoesDao: PermissoesDao) {
 

@@ -1,4 +1,4 @@
-package br.com.fgomes.cgd.updateproject.data
+package br.com.fgomes.cgd.updateproject.entity
 
 import android.os.Parcel
 import android.os.Parcelable

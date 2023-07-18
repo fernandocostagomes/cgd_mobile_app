@@ -2,7 +2,7 @@ package br.com.fgomes.cgd.updateproject.repository
 
 import androidx.annotation.WorkerThread
 import br.com.fgomes.cgd.updateproject.dao.PartidaDao
-import br.com.fgomes.cgd.updateproject.data.Partida
+import br.com.fgomes.cgd.updateproject.entity.Partida
 
 class PartidaRepository(private val partidaDao: PartidaDao) {
 
