@@ -30,13 +30,10 @@ public class PartidasMesActivity extends Activity
    private int m_idGrupo;
    private int m_idParametro = 1;
 
-   /**Objeto jogador para carregar os jogadores*/
-
    /**
     * Metodo que carrega a lista com os pontos.
     */
-   private void loadListPoints()
-   {
+   private void loadListPoints(){
      m_list_partidas = m_db.selectItensPartidasMes();
    }
 

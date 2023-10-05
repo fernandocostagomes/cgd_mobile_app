@@ -26,30 +26,30 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+
 import br.com.fgomes.cgd.R;
 import br.com.fgomes.cgd.objects.Jogador;
-import br.com.fgomes.cgd.objects.Parametro;
 import br.com.fgomes.cgd.objects.Pontos;
 import br.com.fgomes.cgd.utils.DbHelper;
+import br.com.fgomes.cgd.utils.ItensListPartidasMes;
 import br.com.fgomes.cgd.utils.ItensListViewInicio;
 import br.com.fgomes.cgd.utils.ProcessExportManager;
 
 public class GrupoInicioActivity extends Activity implements OnItemClickListener{
    private DbHelper m_db = new DbHelper( this );
-   private int m_retornoIdGrupo;
-   private int m_idGrupo;
-   private int m_idParametro = 1;
-   private ListView m_list;
-   ArrayList<Jogador> m_listJogadores;
-   ArrayList<Pontos> m_listPoints;
+   private int m_retornoIdGrupo, m_idGrupo, m_idParametro = 1;
+   private ListView m_list, m_listPartidasToday;
+   private ArrayList<Jogador> m_listJogadores;
+   private ArrayList<Pontos> m_listPoints;
    private ArrayList<ItensListViewInicio> m_listItensInicio;
-   View m_view;
+   private List<ItensListPartidasMes> m_list_partidas;
    private String m_month = "";
    private String m_year = "";
    private String m_dateStart = "";
    private String m_dateEnd = "";
+   private String m_today = "";
 
-   private void loadListStart(){
+   private void loadListResume(){
       //Carregamento da lista de jogadores do grupo.
       m_listJogadores = new ArrayList<>( m_db.selectJogadoresGrupo( m_idGrupo ) );
       //Carregamento da lista de pontos de acordo com o mes corrente na data atual.
@@ -107,60 +107,74 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
           ilv.setM_loses(losesTotal);
          //Qt vitorias
          ilv.setM_wins(winsTotal);
-          m_listItensInicio.add(ilv);
+
+         m_listItensInicio.add(ilv);
       }
+
+      ArrayList<ItensListViewInicio> newListItensInicio = new ArrayList<>();
+
+      // Retirar jogadores que ainda não jogaram no mês.
+      for(ItensListViewInicio jogadorNull : m_listItensInicio){
+         if( jogadorNull.getM_loses() > 0 || jogadorNull.getM_wins() > 0 )
+            newListItensInicio.add( jogadorNull );
+      }
+
+      m_listItensInicio = newListItensInicio;
+
       Collections.sort(m_listItensInicio, new comparatorDefault());
-      loadListView();
+      loadListViewResume();
    }
-   private void loadListView(){
+   private void loadListViewResume(){
+      m_list = findViewById( R.id.lvJogadores );
+
       ArrayAdapter<ItensListViewInicio> adapter = new ArrayAdapter<ItensListViewInicio>( this,
          R.layout.activity_inicio_itens, m_listItensInicio ){
          @Override
          public View getView( int p_position, View p_convertView, ViewGroup p_parent ){
             // Use view holder patern to better performance with list view.
-            ViewHolderItem viewHolder = null;
+            ViewHolderItem vh = null;
 
             if ( p_convertView == null ){
                p_convertView = getLayoutInflater().inflate( R.layout.activity_inicio_itens, p_parent,
                   false );
 
-               viewHolder = new ViewHolderItem();
+               vh = new ViewHolderItem();
 
-               viewHolder.textViewName = ( TextView )p_convertView.findViewById( R.id.tvName );
-               viewHolder.textViewTotal = ( TextView )p_convertView.findViewById( R.id.tvPtTotal );
-               viewHolder.textViewPtCat = ( TextView )p_convertView.findViewById( R.id.tvPtCat );
-               viewHolder.textViewPtTotal = ( TextView )p_convertView.findViewById( R.id.tvTotal );
-               viewHolder.textViewLoses = ( TextView )p_convertView.findViewById( R.id.tvLoses);
-               viewHolder.textViewWins = ( TextView )p_convertView.findViewById( R.id.tvWins);
+               vh.tvName = p_convertView.findViewById( R.id.tvName );
+               vh.tvTotal = p_convertView.findViewById( R.id.tvPtTotal );
+               vh.tvPtCat = p_convertView.findViewById( R.id.tvPtCat );
+               vh.tvPtTotal = p_convertView.findViewById( R.id.tvTotal );
+               vh.tvLoses = p_convertView.findViewById( R.id.tvLoses);
+               vh.tvWins = p_convertView.findViewById( R.id.tvWins);
 
                // store holder with view.
-               p_convertView.setTag( viewHolder );
+               p_convertView.setTag( vh );
             }
             // get saved holder
             else{
-               viewHolder = ( ViewHolderItem )p_convertView.getTag();
+               vh = ( ViewHolderItem )p_convertView.getTag();
             }
 
             ItensListViewInicio itemL = m_listItensInicio.get( p_position );
             final int itenListJogador = p_position;
 
             // Name
-            viewHolder.textViewName.setText( itemL.m_name );
+            vh.tvName.setText( itemL.m_name );
             // Pontos
-            viewHolder.textViewTotal.setText( itemL.m_pontos );
+            vh.tvTotal.setText( itemL.m_pontos );
             // Gatos
-            viewHolder.textViewPtCat.setText( itemL.m_gatos );
+            vh.tvPtCat.setText( itemL.m_gatos );
             // Total pontos
-            viewHolder.textViewPtTotal.setText( String.valueOf(itemL.m_total_pontos) );
+            vh.tvPtTotal.setText( String.valueOf(itemL.m_total_pontos) );
             // Total derrotas
-            viewHolder.textViewLoses.setText( String.valueOf(itemL.m_loses) );
+            vh.tvLoses.setText( String.valueOf(itemL.m_loses) );
             // Total Vitorias
-            viewHolder.textViewWins.setText( String.valueOf(itemL.m_wins) );
+            vh.tvWins.setText( String.valueOf(itemL.m_wins) );
 
             /**
              *  Evento de toque em um item da lista.
              */
-            viewHolder.textViewName.setOnClickListener( new View.OnClickListener(){
+            vh.tvName.setOnClickListener( new View.OnClickListener(){
                @Override
                public void onClick( View p_view ){
                   final int idJogador = m_listJogadores.get( itenListJogador ).getIdJogador();
@@ -198,15 +212,75 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             return p_convertView;
          }
          final class ViewHolderItem{
-            TextView textViewName;
-            TextView textViewTotal;
-            TextView textViewPtCat;
-            TextView textViewPtTotal;
-            TextView textViewLoses;
-            TextView textViewWins;
+            TextView tvName, tvTotal, tvPtCat, tvPtTotal, tvLoses, tvWins;
          }
       };
       m_list.setAdapter( adapter );
+   }
+
+   private void loadListGamesToday() {
+      try {
+         m_listPartidasToday = findViewById( R.id.lvPartidasMesGrupoInicio );
+         m_list_partidas = m_db.selectItensPartidas(m_idGrupo, m_today,
+                 m_today);
+         loadListViewGamesToday();
+      } catch (Exception e) {
+         throw new RuntimeException(e);
+      }
+   }
+
+   private void loadListViewGamesToday()
+   {
+      ArrayAdapter<ItensListPartidasMes> adapter = new ArrayAdapter<>(
+              this, R.layout.activity_itens_partidas_dia, m_list_partidas )
+      {
+         @Override
+         public View getView( int p_position, View p_convertView, ViewGroup p_parent )
+         {
+            // Use view holder patern to better performance with list view.
+            ViewHolderItem vh = null;
+
+            if ( p_convertView == null )
+            {
+               p_convertView = getLayoutInflater().inflate(
+                       R.layout.activity_itens_partidas_dia, p_parent, false );
+
+               vh = new ViewHolderItem();
+               vh.tvV1 = p_convertView.findViewById( R.id.tvTitleV1 );
+               vh.tvV2 = p_convertView.findViewById( R.id.tvTitleV2 );
+               vh.tvP1 = p_convertView.findViewById( R.id.tvTitleP1 );
+               vh.tvP2 = p_convertView.findViewById( R.id.tvTitleP2 );
+               vh.tvPoints = p_convertView.findViewById( R.id.tvTitleQtPt );
+
+               // store holder with view.
+               p_convertView.setTag( vh );
+            }
+            // get saved holder
+            else
+               vh = ( ViewHolderItem )p_convertView.getTag();
+
+            final ItensListPartidasMes itemL = m_list_partidas.get( p_position );
+
+            // TextView V1
+            vh.tvV1.setText( m_db.selectNameJogador( Integer.parseInt( itemL.m_v1 ) ) );
+            // TextView V2
+            vh.tvV2.setText( m_db.selectNameJogador( Integer.parseInt( itemL.m_v2 ) ) );
+            // TextView P1
+            vh.tvP1.setText( m_db.selectNameJogador( Integer.parseInt( itemL.m_p1 ) ) );
+            // TextView P2
+            vh.tvP2.setText( m_db.selectNameJogador( Integer.parseInt( itemL.m_p2 ) ) );
+            // Total pontos
+            vh.tvPoints.setText( itemL.m_points );
+
+            return p_convertView;
+         }
+
+         final class ViewHolderItem{
+            TextView tvV1, tvV2, tvP1, tvP2, tvPoints;
+         }
+      };
+      m_listPartidasToday.setAdapter( adapter );
+
    }
 
    private void takeScreenshot(){
@@ -261,87 +335,91 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
       Date data = new Date();
       Calendar c = Calendar.getInstance();
       c.setTime(data);
+      // Pega o dia atual
+      Format formatDay = new SimpleDateFormat("dd");
+      String today = formatDay.format(c.getTime());
       // formata e exibe a data e hora
       Format formatMonth = new SimpleDateFormat("MM");
       m_month = formatMonth.format(c.getTime());
       Format formatYear = new SimpleDateFormat("yyyy");
       m_year = formatYear.format(c.getTime());
+      m_today = m_year +"-"+ m_month +"-"+ today;
     switch (m_month){
        case "01":
-          setTitle("Pontos Dominó - Janeiro " + m_year);
+          setTitle("Dominó - Janeiro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "02":
-          setTitle("Pontos Dominó - Fevereiro " + m_year);
+          setTitle("Dominó - Fevereiro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "29";
           break;
        case "03":
-          setTitle("Pontos Dominó - Março " + m_year);
+          setTitle("Dominó - Março " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "04":
-          setTitle("Pontos Dominó - Abril " + m_year);
+          setTitle("Dominó - Abril " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
           break;
        case "05":
-          setTitle("Pontos Dominó - Maio " + m_year);
+          setTitle("Dominó - Maio " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "06":
-          setTitle("Pontos Dominó - Abril " + m_year);
+          setTitle("Dominó - Abril " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
           break;
        case "07":
-          setTitle("Pontos Dominó - Julho " + m_year);
+          setTitle("Dominó - Julho " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "08":
-          setTitle("Pontos Dominó - Agosto " + m_year);
+          setTitle("Dominó - Agosto " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "09":
-          setTitle("Pontos Dominó - Setembro " + m_year);
+          setTitle("Dominó - Setembro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
           break;
        case "10":
-          setTitle("Pontos Dominó - Outubro " + m_year);
+          setTitle("Dominó - Outubro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
        case "11":
-          setTitle("Pontos Dominó - Novembro " + m_year);
+          setTitle("Dominó - Novembro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
           break;
        case "12":
-          setTitle("Pontos Dominó - Dezembro " + m_year);
+          setTitle("Dominó - Dezembro " + m_year);
           m_dateStart = m_year +"-"+ m_month +"-"+ "01";
           m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
           break;
     }
    }
 
-   public GrupoInicioActivity(){}
+   private void getIdGrupo() {
+      // ...Buscando o valor do idGrupo cadastrado no Banco / Parametros
 
-   public void teste(){
+      int valorIdGrupo = m_db.selectUmParametro( m_idParametro ).getValorParametro();
+      if ( m_retornoIdGrupo > 0 )
+         m_idGrupo = m_retornoIdGrupo;
+      else
+         m_idGrupo = valorIdGrupo;
 
    }
 
-   @Override
-   protected void onCreate( Bundle savedInstanceState ){
-      super.onCreate( savedInstanceState );
-      setContentView( R.layout.activity_grupo_inicio );
-      m_view = getWindow().getDecorView().findViewById( android.R.id.content );
-      CheckMonthYear();
+   private void getBundle() {
       Intent iDadosRecebidos = getIntent();
 
       if ( iDadosRecebidos != null ){
@@ -351,15 +429,22 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             m_retornoIdGrupo = parametrosRecebidos.getInt( "envioIdGrupo" );
          }
       }
-      // ...Buscando o valor do idGrupo cadastrado no Banco / Parametros
-      Parametro param = m_db.selectUmParametro( m_idParametro );
-      int valorIdGrupo = param.getValorParametro();
-      if ( m_retornoIdGrupo > 0 )
-         m_idGrupo = m_retornoIdGrupo;
-      else
-         m_idGrupo = valorIdGrupo;
-      m_list = findViewById( R.id.lvJogadores );
-      loadListStart();
+   }
+
+   @Override
+   protected void onCreate( Bundle savedInstanceState ){
+      super.onCreate( savedInstanceState );
+      setContentView( R.layout.activity_grupo_inicio );
+
+      CheckMonthYear();
+
+      getBundle();
+
+      getIdGrupo();
+
+      loadListResume();
+
+      loadListGamesToday();
    }
 
    @Override
@@ -429,18 +514,22 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
          case R.id.action_send_print:
             takeScreenshot();
          break;
+
+         case R.id.action_add_player:
+            try {
+               Intent intent = new Intent( this, CadastroJogadorActivity.class );
+               intent.putExtra( "idGrupo", m_retornoIdGrupo );
+               startActivity( intent );
+            } catch (Exception e) {
+               throw new RuntimeException(e);
+            }
+            break;
       }
       return super.onOptionsItemSelected( p_item );
    }
 
    public void evtBtPointsDay( View p_view ){
       Intent intent = new Intent( this, PontosDiaActivity.class );
-      intent.putExtra( "idGrupo", m_retornoIdGrupo );
-      startActivity( intent );
-   }
-
-   public void evtBtCadastrarJogador( View p_view ){
-      Intent intent = new Intent( this, CadastroJogadorActivity.class );
       intent.putExtra( "idGrupo", m_retornoIdGrupo );
       startActivity( intent );
    }

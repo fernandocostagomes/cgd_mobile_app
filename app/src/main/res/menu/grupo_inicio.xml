@@ -1,40 +1,48 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.com.fgomes.cgd.GrupoInicio" >
+    tools:context="br.com.fgomes.cgd.GrupoInicio">
+
+    <item
+        android:id="@+id/action_add_player"
+        android:icon="@android:drawable/ic_menu_add"
+        android:orderInCategory="100"
+        android:title="Add jogador"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/action_export"/>
+        android:title="@string/action_export"
+        app:showAsAction="never" />
 
-        <item
+    <item
         android:id="@+id/action_points"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/points"/>
+        android:title="@string/points"
+        app:showAsAction="never" />
 
-        <item
+    <item
         android:id="@+id/action_winners"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/winners"/>
+        android:title="@string/winners"
+        app:showAsAction="never" />
 
-        <item
+    <item
         android:id="@+id/action_send_print"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/send_print"/>
+        android:title="@string/send_print"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_login"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="Login"/>
+        android:title="Login"
+        app:showAsAction="never" />
 
-        <item
+    <item
         android:id="@+id/action_out"
         android:orderInCategory="100"
-        android:showAsAction="never"
-        android:title="@string/log_out"/>
+        android:title="@string/log_out"
+        app:showAsAction="never" />
 </menu>

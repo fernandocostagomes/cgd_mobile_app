@@ -448,6 +448,42 @@ public class DbHelper extends SQLiteOpenHelper
       return resultList;
    }
 
+   public List<ItensListPartidasMes> selectItensPartidas(int pGrupo,
+                                                         String pDateStart,
+                                                         String pDateEnd){
+      List<ItensListPartidasMes> resultList = new ArrayList<ItensListPartidasMes>();
+
+      SQLiteDatabase db = getReadableDatabase();
+
+      String SqlSelectPartidasPorPeriodo =
+              "select * from Point where datetime(" +
+                      "[dataPoint]/1000, 'unixepoch') between  " +
+                      "'" + pDateStart.concat(" 00:00:00") + "' and '" +
+                      pDateEnd.concat(" 23:59:59") + "' and idGrupo = " + pGrupo;
+
+      Cursor c = db.rawQuery( SqlSelectPartidasPorPeriodo, null );
+
+      if ( c.moveToFirst() )
+      {
+         do
+         {
+            ItensListPartidasMes part = new ItensListPartidasMes();
+
+            part.setM_id( String.valueOf( c.getInt( 0 ) ) );
+            part.setM_date( c.getString( 1 ) );
+            part.setM_v1( String.valueOf( c.getInt( 2 ) ) );
+            part.setM_v2( String.valueOf( c.getInt( 3 ) ) );
+            part.setM_points( String.valueOf( c.getString( 4 ) ) );
+            part.setM_p1( String.valueOf( c.getInt( 5 ) ) );
+            part.setM_p2( String.valueOf( c.getInt( 6 ) ) );
+
+            resultList.add( part );
+         } while ( c.moveToNext() );
+      }
+      db.close();
+      return resultList;
+   }
+
    /**
     * Metodo que seleciona todos os pontos da tabela pontos.
     *

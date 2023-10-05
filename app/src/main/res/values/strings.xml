@@ -34,8 +34,8 @@
     <string name="title_activity_grupo_inicio">Grupo</string>
     <string name="btMarcarGato">Marcar Gato</string>
     <string name="btCadastrarJogador">Adicionar Jogador</string>
-    <string name="btCheckPoint">Marcar</string>
-    <string name="btPointsDay">Hoje</string>
+    <string name="btCheckPoint">Marcar ponto</string>
+    <string name="btPointsDay">Resumo hoje</string>
     <string name="title_activity_cadastro_grupo">Cadastro de Grupo</string>
     <string name="title_activity_cadastro_jogador">Cadastro de Jogador</string>
     <string name="title_activity_marcar_gato">Marcar Gato</string>
