@@ -1,3 +1,4 @@
+/build
 *.iml
 .idea/workspace.xml
 .idea/tasks.xml
@@ -11,6 +12,7 @@
 .idea/modules.xml
 # Comment next line if keeping position of elements in Navigation Editor is relevant for you
 .idea/navEditor.xml
+
 .gradle
 /local.properties
 .idea/*
@@ -21,9 +23,5 @@
 .idea/codeStyles/Project.xml
 /idea/codeStyles/Project.xml
 .DS_Store
-/build
 /captures
 .externalNativeBuild
-*.tmp
-*.swp
-*.class
