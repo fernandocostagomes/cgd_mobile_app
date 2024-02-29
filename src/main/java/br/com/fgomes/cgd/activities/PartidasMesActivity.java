@@ -1,17 +1,20 @@
 package br.com.fgomes.cgd.activities;
 
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.*;
 import android.content.*;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
+import android.util.Log;
+import android.widget.CheckBox;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 import br.com.fgomes.cgd.R;
@@ -22,6 +25,7 @@ import br.com.fgomes.cgd.utils.ItensListPartidasMes;
 
 public class PartidasMesActivity extends Activity
 {
+   private static final String TAG = "PartidasMesActivity";
    private DbHelper m_db = new DbHelper( this );
    /** Lista de objetos para criar o listView.*/
    private List<ItensListPartidasMes> m_list_partidas;
@@ -58,14 +62,14 @@ public class PartidasMesActivity extends Activity
 
                viewHolder = new ViewHolderItem();
 
-               viewHolder.textViewId = ( TextView )p_convertView.findViewById( R.id.tvId );
-               viewHolder.textViewDate = ( TextView )p_convertView.findViewById( R.id.tvTitleDate );
-               viewHolder.textViewV1 = ( TextView )p_convertView.findViewById( R.id.tvTitleV1 );
-               viewHolder.textViewV2 = ( TextView )p_convertView.findViewById( R.id.tvTitleV2 );
-               viewHolder.textViewP1 = ( TextView )p_convertView.findViewById( R.id.tvTitleP1 );
-               viewHolder.textViewP2 = ( TextView )p_convertView.findViewById( R.id.tvTitleP2 );
-               viewHolder.textViewPoints = ( TextView )p_convertView.findViewById( R.id.tvTitleQtPt );
-               viewHolder.buttonDel = ( Button )p_convertView.findViewById( R.id.btDelPointPart );
+               viewHolder.textViewId = p_convertView.findViewById( R.id.tvId );
+               viewHolder.textViewDate = p_convertView.findViewById( R.id.tvTitleDate );
+               viewHolder.textViewV1 = p_convertView.findViewById( R.id.tvTitleV1 );
+               viewHolder.textViewV2 = p_convertView.findViewById( R.id.tvTitleV2 );
+               viewHolder.textViewP1 = p_convertView.findViewById( R.id.tvTitleP1 );
+               viewHolder.textViewP2 = p_convertView.findViewById( R.id.tvTitleP2 );
+               viewHolder.textViewPoints = p_convertView.findViewById( R.id.tvTitleQtPt );
+               viewHolder.buttonDel = p_convertView.findViewById( R.id.btDelPointPart );
 
                // store holder with view.
                p_convertView.setTag( viewHolder );
@@ -133,6 +137,12 @@ public class PartidasMesActivity extends Activity
                }
             } );
 
+            //Abri a partida em um dialog para editar.
+            viewHolder.textViewId.setOnClickListener( p_v -> {
+               editPoint( itemL );
+
+            });
+
             return p_convertView;
          }
 
@@ -150,6 +160,142 @@ public class PartidasMesActivity extends Activity
       };
       m_list.setAdapter( adapter );
 
+   }
+
+   private void editarPartida( int pIdPartida,
+                               int pWon1,
+                               int pWon2,
+                               int pLose1,
+                               int pLose2,
+                               int pValuePartida ){
+      int id = pIdPartida;
+      int idWon1 = pWon1;
+      int idWon2 = pWon2;
+      int idLose1 = pLose1;
+      int idLose2 = pLose2;
+      int valuePartida = pValuePartida;
+
+//      if ( m_db.updatePoint( id, idWon1, idWon2, idLose1, idLose2, pValuePartida ) ){
+//         Toast.makeText( getApplicationContext(), "Partida editada.", Toast.LENGTH_SHORT ).show();
+//         dialog.dismiss();
+//         backToInit();;
+//      }
+   }
+
+   private void backToInit(){
+      Intent it = new Intent( this, GrupoInicioActivity.class );
+      it.putExtra( "envioIdGrupo", m_idGrupo );
+      startActivity( it );
+      finish();
+   }
+
+   private void editPoint( ItensListPartidasMes itemL )
+   {
+      final Dialog dialog = new Dialog( this );
+      dialog.setContentView( R.layout.activity_editar_partida );
+      dialog.setTitle( "Editar partida" );
+
+      TextView tvId = dialog.findViewById( R.id.tv_id_partida );
+      TextView tvData = dialog.findViewById( R.id.tv_data_partida );
+      //Coluna de vencedores
+      CheckBox cbWon1 = dialog.findViewById( R.id.cb_won1_edit );
+      CheckBox cbWon2 = dialog.findViewById( R.id.cb_won2_edit );
+      CheckBox cbWon3 = dialog.findViewById( R.id.cb_won3_edit );
+      CheckBox cbWon4 = dialog.findViewById( R.id.cb_won4_edit );
+
+      //Coluna de perdedores
+      CheckBox cbLose1 = dialog.findViewById( R.id.cb_lose1_edit );
+      CheckBox cbLose2 = dialog.findViewById( R.id.cb_lose2_edit );
+      CheckBox cbLose3 = dialog.findViewById( R.id.cb_lose3_edit );
+      CheckBox cbLose4 = dialog.findViewById( R.id.cb_lose4_edit );
+
+      RadioButton rbPartGato =
+              dialog.findViewById( R.id.rb_edit_partida_gato );
+      RadioButton rbPartPts2 =
+              dialog.findViewById( R.id.rb_edit_partida_pts_2 );
+      RadioButton rbPartPts1 =
+              dialog.findViewById( R.id.rb_edit_partida_pts_1 );
+
+      Button btEdit = dialog.findViewById( R.id.bt_edit_partida );
+
+      String v1 = m_db.selectNameJogador( Integer.parseInt( itemL.get_v1() ) );
+      String v2 = m_db.selectNameJogador( Integer.parseInt( itemL.get_v2() ) );
+      String p1 = m_db.selectNameJogador( Integer.parseInt( itemL.get_p1() ) );
+      String p2 = m_db.selectNameJogador( Integer.parseInt( itemL.get_p2() ) );
+
+      //Textview com o id da partida.
+      tvId.setText( itemL.get_id() );
+
+      //Textview com a data da partida.
+      tvData.setText( android.text.format.DateFormat.format( "dd/MM",
+              Long.parseLong( itemL.get_date() ) ) );
+
+      //CheckBox dos jogadores, pega o valor do nome do hash criado acima.
+      cbWon1.setId(Integer.parseInt(itemL.get_v1()));
+      cbWon1.setText( v1 );
+      cbWon1.setChecked( true );
+
+      cbWon2.setId(Integer.parseInt(itemL.get_v2()));
+      cbWon2.setText( v2 );
+      cbWon2.setChecked( true );
+
+      cbWon3.setId(Integer.parseInt(itemL.get_p1()));
+      cbWon3.setText( p1 );
+      cbWon3.setChecked( false );
+
+      cbWon4.setId(Integer.parseInt(itemL.get_p2()));
+      cbWon4.setText( p2 );
+      cbWon4.setChecked( false );
+
+      cbLose1.setId(Integer.parseInt(itemL.get_p1()));
+      cbLose1.setText( p1 );
+      cbLose1.setChecked(true);
+
+      cbLose2.setId(Integer.parseInt(itemL.get_p2()));
+      cbLose2.setText( p2 );
+      cbLose2.setChecked(true);
+
+      cbLose3.setId(Integer.parseInt(itemL.get_v1()));
+      cbLose3.setText( v1 );
+      cbLose3.setChecked(false);
+
+      cbLose4.setId(Integer.parseInt(itemL.get_v2()));
+      cbLose4.setText( v2 );
+      cbLose4.setChecked(false);
+
+      switch (itemL.get_points()) {
+         case "3" -> {
+            rbPartGato.setChecked(true);
+            rbPartPts1.setChecked(false);
+            rbPartPts2.setChecked(false);
+         }
+         case "2" -> {
+            rbPartPts2.setChecked(true);
+            rbPartGato.setChecked(false);
+            rbPartPts1.setChecked(false);
+         }
+         case "1" -> {
+            rbPartPts1.setChecked(true);
+            rbPartPts2.setChecked(false);
+            rbPartGato.setChecked(false);
+         }
+      }
+
+      btEdit.setOnClickListener( p_v -> {
+//         editarPartida(
+//                 itemL.get_id(),
+//                 m_db.selectJogadorByName( , m_idGrupo ),
+//                 cbWon2,
+//                 cbLose1,
+//                 cbLose2,
+//                 rbPartGato,
+//                 rbPartPts2,
+//                 rbPartPts1,
+//                 dialog );
+
+      });
+
+      dialog.show();
    }
 
    @Override

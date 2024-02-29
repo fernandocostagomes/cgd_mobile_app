@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.telephony.PhoneNumberFormattingTextWatcher;
-import android.telephony.PhoneNumberUtils;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
@@ -91,7 +90,7 @@ public class CadastroGrupoActivity extends Activity
 			dbh.insertGrupo(valor);
          Toast.makeText( getApplicationContext(), "Grupo cadastro, por favor faca o Login!", Toast.LENGTH_LONG ).show();
 			startActivity(new Intent(getApplicationContext(),
-					MainActivity.class));
+					LoginGroupActivity.class));
 			finish();
       }
       else
@@ -105,6 +104,6 @@ public class CadastroGrupoActivity extends Activity
    public void onBackPressed()
    {
       super.onBackPressed();
-      startActivity( new Intent( getApplicationContext(), MainActivity.class ) );
+      startActivity( new Intent( getApplicationContext(), LoginGroupActivity.class ) );
    }
 }

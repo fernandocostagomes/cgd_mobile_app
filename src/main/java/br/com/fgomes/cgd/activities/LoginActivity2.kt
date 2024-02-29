@@ -3,7 +3,6 @@ package br.com.fgomes.cgd.activities
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -15,7 +14,6 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,7 +25,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import br.com.fgomes.cgd.activities.ui.theme.CGDTheme
 
-class LoginActivity : ComponentActivity() {
+class LoginActivity2 : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -57,24 +55,6 @@ class LoginActivity : ComponentActivity() {
 //    heightDp = 200,
 //    widthDp = 300
 //)
-
-
-//@OptIn(ExperimentalMaterial3Api::class)
-//@Composable
-//fun Greeting( modifier: Modifier = Modifier) {
-//    Column(
-//        modifier = Modifier.fillMaxSize(),
-//        horizontalAlignment = Alignment.CenterHorizontally,
-//        verticalArrangement = Arrangement.Center
-//    ) {
-//        // Adicione os componentes da tela de login, como campos de texto, botões, etc.
-//        TextField(
-//            value = "teste",
-//            onValueChange = { },
-//            label = { Text("Usuário") },
-//        )
-//    }
-//}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

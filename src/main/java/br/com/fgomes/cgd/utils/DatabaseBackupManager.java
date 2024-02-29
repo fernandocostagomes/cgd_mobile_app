@@ -1,10 +1,9 @@
 package br.com.fgomes.cgd.utils;
 
-import java.io.File;
-
 import android.content.Context;
 import android.os.Environment;
-import br.com.fgomes.cgd.activities.MainActivity;
+
+import java.io.File;
 
 /**
  * Classe respons�vel por conter o procedimento de backup/restaura��o do Banco de Dados.
@@ -31,15 +30,17 @@ public class DatabaseBackupManager
     * 
     * @param p_context Contexto da aplica��o.
     */
-   public DatabaseBackupManager( Context p_context )
-   {
+   public DatabaseBackupManager( Context p_context ){
       m_context = p_context;
-      m_appDatabaseFile = m_context.getDatabasePath( MainActivity.DATABASE_NAME );
-      m_backupDatabaseFileInLocalFiles = new File( m_context.getFilesDir().getAbsolutePath() + File.separator
-               + MainActivity.DATABASE_NAME );
-      m_backupDatabaseFileInSdCard = new File( Environment.getExternalStorageDirectory().getAbsolutePath()
-               + File.separator
-               + m_backupFolderName + File.separator + MainActivity.DATABASE_NAME );
+      m_appDatabaseFile =
+              m_context.getDatabasePath( DbHelper.DB_NAME );
+      m_backupDatabaseFileInLocalFiles = new File(
+              m_context.getFilesDir().getAbsolutePath() + File.separator
+                      + DbHelper.DB_NAME );
+      m_backupDatabaseFileInSdCard = new File(
+              Environment.getExternalStorageDirectory().getAbsolutePath()
+                      + File.separator
+                      + m_backupFolderName + File.separator + DbHelper.DB_NAME );
    }
 
    /**

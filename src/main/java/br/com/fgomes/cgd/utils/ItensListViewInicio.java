@@ -15,6 +15,8 @@ public class ItensListViewInicio{
    private int m_loses;
    /** int para o textView que indicara o total de vitorias*/
    private int m_wins;
+   /** int para o textView que indicara o total de dias jogados*/
+   private int m_played_days;
 
    public ItensListViewInicio (){}
 
@@ -98,5 +100,13 @@ public class ItensListViewInicio{
 
    public void setM_wins(int m_wins) {
       this.m_wins = m_wins;
+   }
+
+   public int get_played_days() {
+      return m_played_days;
+   }
+
+   public void set_played_days(int m_played_days) {
+      this.m_played_days = m_played_days;
    }
 }

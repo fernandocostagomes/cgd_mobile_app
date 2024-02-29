@@ -4,7 +4,7 @@
     <string name="app_name">Conta Pontos Dominó</string>
     <string name="btEntrar">Entrar</string>
     <string name="btCadastrar">Cadastrar Grupo</string>
-    <string name="Acesso1">Seu primeiro acesso?</string>
+    <string name="Acesso1">Cadastrar</string>
     <string name="btEsqueciSenhaGrupo">Esqueci</string>
     <string name="btLembrarSenhaGrupo">Lembrar</string>
     <string name="action_example">Example action</string>
@@ -12,6 +12,8 @@
     <string name="action_removeCat">Remover Ponto</string>
     <string name="action_backup">Backup</string>
     <string name="action_export">Exportar</string>
+    <string name="action_mode_online">On-line</string>
+    <string name="user">Usuário</string>
     <string name="Grupo">Grupo</string>
     <string name="Senha">Senha</string>
     <string name="CadastrarSenha">Cadastrar Senha</string>
@@ -45,6 +47,8 @@
     <string name="confirmeTelefone">Confirme o Telefone</string>
     <string name="title_activity_contatos_importar">Importar Contatos da Agenda</string>
     <string name="title_activity_point">Marcar Ponto</string>
+    <string name="title_activity_edit_partida">Editar partida</string>
+    <string name="desc_activity_edit_partida">Editar</string>
     <string name="title_activity_consulta_jogador">Consultar Jogador</string>
     <string name="title_activity_consultar_credito_debito">Consultar Crédito ou Débito</string>
     <string name="title_activity_remover_ponto">Remover Ponto</string>
@@ -80,4 +84,5 @@
     <string name="bt_pointsDayEnd">Fim</string>
     <string name="bt_pointsDay_go">Pesquisar</string>
     <string name="title_activity_login">LoginActivity</string>
+    <string name="ok">OK</string>
 </resources>
