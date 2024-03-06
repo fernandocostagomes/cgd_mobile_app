@@ -47,7 +47,7 @@
                 android:id="@+id/tvTitleName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="2"
+                android:layout_weight="3"
                 android:text="Nome"
                 android:textStyle="bold" />
 
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="DJ"
+                android:text="D"
                 android:textStyle="bold" />
 
             <TextView
@@ -139,7 +139,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
-                android:text="Total"
+                android:text="T"
                 android:textStyle="bold" />
         </TableRow>
         <TableRow
@@ -161,7 +161,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="V=vitória, D=derrota, P=pontos, G=gatos, H=hoje"/>
+                android:text="D1=dias-V=vitória-D2=derrota-P=pontos-G=gatos-H=hoje"/>
         </TableRow>
     </TableLayout>
 
@@ -205,7 +205,13 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:layout_weight="2"
-                android:text="Gatos" />
+                android:text="Deu Gatos" />
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:text="Levou Gatos" />
         </TableRow>
 
         <TableRow
@@ -219,6 +225,13 @@
                 android:text="" />
             <TextView
                 android:id="@+id/tvTitleMes4ValuePontos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:text="" />
+            <TextView
+                android:id="@+id/tvTitleMes4ValueDeuGatos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -250,6 +263,13 @@
                 android:layout_weight="2"
                 android:text="" />
             <TextView
+                android:id="@+id/tvTitleMes3ValueDeuGatos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:text="" />
+            <TextView
                 android:id="@+id/tvTitleMes3ValueGatos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -275,6 +295,13 @@
                 android:layout_weight="2"
                 android:text="" />
             <TextView
+                android:id="@+id/tvTitleMes2ValueDeuGatos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:text="" />
+            <TextView
                 android:id="@+id/tvTitleMes2ValueGatos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -293,6 +320,13 @@
                 android:text="" />
             <TextView
                 android:id="@+id/tvTitleMes1ValuePontos"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_weight="2"
+                android:text="" />
+            <TextView
+                android:id="@+id/tvTitleMes1ValueDeuGatos"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -345,6 +379,7 @@
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="V1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -354,6 +389,7 @@
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="V2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -363,6 +399,7 @@
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="P1"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -372,6 +409,7 @@
                 android:layout_weight="2"
                 android:gravity="center_horizontal"
                 android:text="P2"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
 
             <TextView
@@ -381,6 +419,7 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="P"
+                android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textStyle="bold" />
         </TableRow>
 

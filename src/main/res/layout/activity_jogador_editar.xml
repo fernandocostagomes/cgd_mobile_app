@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="fill_parent"
+    android:layout_gravity="center"
+    android:paddingTop="50dp"
+    tools:context="br.com.fgomes.cgd.activities.CadastroJogadorActivity" >
+
+    <TableRow
+        android:id="@+id/linha10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvNomeJogador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CadastronomeJogador"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha10.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edJogadorEditarNome"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha20"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvJogadorEditarFone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CadastrarTelefoneContatoJogador"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha20.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edCadastroTelefoneJogador"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="text" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvEmailJogador"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/CadastrarEmailJogador"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+    <TableRow
+        android:id="@+id/linha30.1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <EditText
+            android:id="@+id/edCadastroEmailJogador"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:ems="10"
+            android:inputType="textEmailAddress" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha40"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="60dp"
+            android:onClick="evtBtCadastrarJogador"
+            android:text="@string/btSalvarCadastroJogador"
+            android:textAppearance="?android:attr/textAppearanceSmall" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/linha50"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <TableRow
+        android:id="@+id/linha51"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</TableLayout>

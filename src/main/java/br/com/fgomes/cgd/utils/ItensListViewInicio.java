@@ -18,6 +18,8 @@ public class ItensListViewInicio{
    /** int para o textView que indicara o total de dias jogados*/
    private int m_played_days;
 
+   private int mGatosApply;
+
    public ItensListViewInicio (){}
 
    public ItensListViewInicio(
@@ -109,4 +111,8 @@ public class ItensListViewInicio{
    public void set_played_days(int m_played_days) {
       this.m_played_days = m_played_days;
    }
+    public int getGatosApply() { return mGatosApply;}
+
+    public void setGatosApply(int pGatosApply) { this.mGatosApply =
+            pGatosApply; }
 }
