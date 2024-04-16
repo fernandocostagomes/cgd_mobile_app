@@ -1,6 +1,10 @@
 package br.com.fgomes.cgd.utils;
 
+import static java.sql.DriverManager.println;
 import static br.com.fgomes.cgd.utils.DateCGD.getPreviousMonths;
+import static br.com.fgomes.cgd.utils.DateCGD.getPreviousMonthsDate;
+
+import android.util.Log;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -49,6 +53,18 @@ public class DateCGDTest {
             testListPreviousMonths( listFor );
         }
     }
+
+    @Test
+    public void testGetMonths(){
+        // Lista de strings para comparar com a volta do metodo e assertivar
+        // o teste.
+        List<String> stringList = new ArrayList<>();
+        stringList.add( "01-01-2024 - 31-01-2024" );
+        stringList.add( "01-02-2024 - 29-02-2024" );
+        stringList.add( "01-03-2024 - 31-03-2024" );
+
+        Assert.assertEquals( stringList, getPreviousMonthsDate( 3 ) );
+    }
     public void testAmountMonths( int pAmount ) {
         Assert.assertEquals( pAmount, getPreviousMonths( pAmount ).size() );
     }
@@ -56,5 +72,4 @@ public class DateCGDTest {
         Assert.assertEquals( pListMonths,
                 getPreviousMonths( pListMonths.size() ) );
     }
-
 }

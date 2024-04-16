@@ -5,66 +5,77 @@
     android:layout_gravity="center"
     android:orientation="vertical"
     android:paddingLeft="5dp"
-    android:paddingRight="5dp"
     android:paddingTop="10dp"
+    android:paddingRight="5dp"
     android:stretchColumns="1,0"
-    tools:context="br.com.fgomes.cgd.activities.PontosDiaActivity" >
+    tools:context="br.com.fgomes.cgd.activities.WinnersActivity">
 
-    <ScrollView
-        android:id="@+id/scrollView1"
+    <TableRow
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-        <LinearLayout
+        android:layout_height="wrap_content"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            android:gravity="center_horizontal"
+            android:text="Mês"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Mês"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Campeão"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Pontos"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Gatos"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Pontos"
+            android:textStyle="bold" />
+    </TableRow>
+
+    <TableRow
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="1dp"
+        android:paddingBottom="2dp">
+
+
+        <ListView
+            android:id="@+id/lvWinners"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp">
-                <TextView
-                    android:id="@+id/tvMonth"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:text="Mês" />
-
-                <TextView
-                    android:id="@+id/tvYear"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:text="Ano" />
-
-                <TextView
-                    android:id="@+id/tvPoints"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:text="Pontos" />
-
-                <TextView
-                    android:id="@+id/tvWinner"
-                    android:layout_width="0dp"
-                    android:layout_weight="2"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:text="Campeão" />
-            </TableRow>
-
-            <ListView
-                android:id="@+id/lvWinners"
-                android:layout_width="match_parent"
-                android:layout_height="404dp" />
-        </LinearLayout>
-    </ScrollView>
+            android:layout_height="match_parent" />
+    </TableRow>
 
 </LinearLayout>

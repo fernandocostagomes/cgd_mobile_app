@@ -1,53 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="horizontal">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
 
-    <TableLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:stretchColumns="0">
-        <TableRow
-            android:layout_width="match_parent"
+        android:paddingTop="2dp"
+        android:paddingBottom="2dp">
+
+        <TextView
+            android:id="@+id/tvMonth"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp">
-            <TextView
-                android:id="@+id/tvMonth"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:text="Mês" />
+            android:layout_weight="3"
+            android:paddingStart="3dp"
+            android:text="Mês"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvYear"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:text="Ano" />
+        <TextView
+            android:id="@+id/tvYear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="Ano"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvPoints"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:text="Pontos" />
+        <TextView
+            android:id="@+id/tvWinner"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Campeão"
+            android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvWinner"
-                android:layout_width="0dp"
-                android:layout_weight="2"
-                android:layout_height="wrap_content"
-                android:gravity="center_horizontal"
-                android:textStyle="bold"
-                android:text="Campeão" />
-        </TableRow>
-    </TableLayout>
+        <TextView
+            android:id="@+id/tvWinnerPoints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Pontos"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCat"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Gato"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvCatPoints"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:gravity="center_horizontal"
+            android:text="Pontos"
+            android:textStyle="bold" />
+    </TableRow>
 </LinearLayout>

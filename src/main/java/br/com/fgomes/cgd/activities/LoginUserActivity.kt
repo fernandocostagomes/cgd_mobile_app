@@ -1,16 +1,11 @@
 package br.com.fgomes.cgd.activities
 
 import android.app.Activity
-import android.app.AlertDialog
 import android.content.Context
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
-import android.view.Menu
-import android.view.MenuItem
 import android.view.View
-import android.view.WindowManager
 import android.widget.EditText
 import android.widget.Switch
 import android.widget.Toast
@@ -18,7 +13,6 @@ import br.com.fgomes.cgd.R
 import br.com.fgomes.cgd.utils.DatabaseBackupManager
 import br.com.fgomes.cgd.utils.DbHelper
 import br.com.fgomes.cgd.utils.FileUtils
-import br.com.fgomes.cgd.utils.ProcessBackupManager
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -32,9 +26,6 @@ import java.io.OutputStream
  * Todos os direitos reservados.
  */
 class LoginUserActivity : Activity() {
-
-    /** Gerenciador de backup do Banco de Dados.  */
-    private var mDatabaseBackupManager: DatabaseBackupManager? = null
 
     /** Modo de operacao, online ou offline. 0=offline 1=online  */
     private var mModeOperation = 0
@@ -100,6 +91,7 @@ class LoginUserActivity : Activity() {
      * Falso, caso tenha dado algum erro no processo de cópia do arquivo para a pasta.
      */
     private fun checkDatabaseFile(): Boolean {
+        val mDbBackupManager = DatabaseBackupManager(applicationContext)
         val databaseFile: File = this.applicationContext.getDatabasePath( DbHelper.DB_NAME )
         val parentDatabaseFile: File
         val `is`: InputStream
@@ -112,8 +104,8 @@ class LoginUserActivity : Activity() {
                     parentDatabaseFile.mkdirs()
                 }
                 // Verifica se é possível recuperar um backup do BD existente.
-                if (mDatabaseBackupManager!!.hasToRecoverDatabaseBackupFile()) {
-                    ret = mDatabaseBackupManager!!.recoverDatabaseBackupFile()
+                if (mDbBackupManager!!.hasToRecoverDatabaseBackupFile()) {
+                    ret = mDbBackupManager!!.recoverDatabaseBackupFile()
                 } else {
                     `is` = resources.openRawResource(R.raw.bdcgd)
                     os = FileOutputStream(databaseFile)
@@ -141,21 +133,24 @@ class LoginUserActivity : Activity() {
         switchMode.isChecked = mModeOperation == 1
     }
 
-    private fun databaseManagerInitClass() {
-        mDatabaseBackupManager = DatabaseBackupManager(applicationContext)
-    }
-
     override fun onCreate(pBundle: Bundle?) {
         super.onCreate(pBundle)
         setContentView(R.layout.activity_login)
 
-        databaseManagerInitClass()
+        checkDatabaseFile()
+
+        initButtons();
 
         checkModeOperation()
 
-        checkDatabaseFile()
-
         checkLoginSave()
+    }
+
+    private fun initButtons() {
+        //Se acionar o Switch, muda o modo de operacao para 1, se não, para 0.
+        ( findViewById<Switch>(R.id.switchModeOperation) ).setOnCheckedChangeListener { _, isChecked ->
+            mModeOperation = if (isChecked) 1 else 0
+        }
     }
 
     // Botao Cadastrar Grupo

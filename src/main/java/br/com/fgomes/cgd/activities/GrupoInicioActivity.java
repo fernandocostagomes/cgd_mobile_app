@@ -33,10 +33,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import br.com.fgomes.cgd.R;
 import br.com.fgomes.cgd.objects.Jogador;
@@ -629,6 +626,24 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
         return map;
     }
 
+    private void actionsSettingsMenu() {
+        ProcessExportManager exportManager = new ProcessExportManager();
+        if (exportManager.makeDataExports(this)) {
+            /*
+             * Mensagem de arquivos exportados com sucesso
+             */
+            AlertDialog alertDialog = new AlertDialog.Builder(GrupoInicioActivity.this)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .setTitle(R.string.app_name).setMessage(R.string.info_successExport)
+                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+                        }
+                    }).show();
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -702,27 +717,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                 throw new RuntimeException(e);
             }
         }
-
-
         return super.onOptionsItemSelected(p_item);
-    }
-
-    private void actionsSettingsMenu() {
-        ProcessExportManager exportManager = new ProcessExportManager();
-        if (exportManager.makeDataExports(this)) {
-            /*
-             * Mensagem de arquivos exportados com sucesso
-             */
-            AlertDialog alertDialog = new AlertDialog.Builder(GrupoInicioActivity.this)
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(R.string.app_name).setMessage(R.string.info_successExport)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
-        }
     }
 
     public void evtBtPointsDay(View p_view) {

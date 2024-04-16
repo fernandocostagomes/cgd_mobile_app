@@ -23,7 +23,7 @@ import br.com.fgomes.cgd.objects.Pontos;
 public class DbHelper extends SQLiteOpenHelper
 {
    private static final String TAG = "DbHelper";
-   public static final String DB_NAME = "BDCGD";
+   public static final String DB_NAME = "bdcgd";
    private static final int VERSAO_BASE = 1;
    private static DbHelper mInstance = null;
 

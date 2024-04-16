@@ -8,7 +8,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,19 +18,16 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.io.FileOutputStream;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.List;
 
 import br.com.fgomes.cgd.R;
-import br.com.fgomes.cgd.objects.Jogador;
-import br.com.fgomes.cgd.objects.Parametro;
 import br.com.fgomes.cgd.objects.Pontos;
+import br.com.fgomes.cgd.objects.PontosPeriodo;
+import br.com.fgomes.cgd.utils.DateCGD;
 import br.com.fgomes.cgd.utils.DbHelper;
 import br.com.fgomes.cgd.utils.ItensListViewInicio;
 import br.com.fgomes.cgd.utils.ItensListWinners;
@@ -41,109 +37,8 @@ import br.com.fgomes.cgd.utils.ItensListWinners;
  */
 
 public class WinnersActivity extends Activity{
-
-    private DbHelper m_db = new DbHelper( this );
-    private int m_retornoIdGrupo;
     private int m_idGrupo;
-    private int m_idParametro = 1;
-    private ListView m_lvWinners;
-    ArrayList<Jogador> m_listJogadores;
-    ArrayList<Pontos> m_listPoints;
     private ArrayList<ItensListWinners> m_itensListWinners;
-    private ArrayList<ItensListViewInicio> m_listItensInicio;
-    View m_view;
-    private String m_month = "";
-    private String m_year = "";
-    private String m_dateStart = "";
-    private String m_dateEnd = "";
-    private ArrayList<DateCGD> m_date;
-
-    private List<ItensListViewInicio> loadListStart(String p_dateStart, String p_dateEnd){
-        //Carregamento da lista de jogadores do grupo.
-        m_listJogadores = new ArrayList<>( m_db.selectJogadoresGrupo( m_idGrupo ) );
-        //Carregamento da lista de pontos de acordo com o mes corrente na data atual.
-        m_listPoints = new ArrayList<>(m_db.selectPointsDayForData(m_idGrupo, p_dateStart, p_dateEnd));
-        //Inicializacao da lista com os itens mostrados na tela.
-        m_listItensInicio = new ArrayList<>();
-        //Percorrendo a lista de jogadores.
-        for (int i = 0; i < m_listJogadores.size(); i++ ) {
-            //Value jogador
-            int jogador = m_listJogadores.get(i).getIdJogador();
-            //Variavel para somar os pontos.
-            int ptTotal = 0;
-            //Variavel para somar os gatos.
-            int catTotal = 0;
-            //Variavel para somar as derrotas.
-            int losesTotal = 0;
-            //Variavel para somar as vitorias.
-            int winsTotal = 0;
-            //Percorrendo a lista de pontos.
-            for (int x = 0; x < m_listPoints.size(); x++) {
-                //Value do jogador1.
-                int jogador1 = m_listPoints.get(x).getIdJogador1();
-                //Value do jogador 2.
-                int jogador2 = m_listPoints.get(x).getIdJogador2();
-                //Value gato1.
-                int gato1 = m_listPoints.get(x).getIdGato1();
-                //Value gato1.
-                int gato2 = m_listPoints.get(x).getIdGato2();
-                //Verificando se o jogador foi derrotado.
-                if(jogador == gato1 || jogador == gato2){
-                    losesTotal++;
-                    //Verificando se a partida foi gato.
-                    if(m_listPoints.get(x).getQtdPoint() == 3){
-                        catTotal++;
-                    }
-                }
-                //Verificando se o jogador ganhou ponto nesse ponto percorrido.
-                if(jogador == jogador1 || jogador == jogador2){
-                    int point = m_listPoints.get(x).getQtdPoint();
-                    ptTotal = ptTotal + point;
-                    winsTotal++;
-                }
-            }
-            //Objeto de itens mostrados na tela.
-            ItensListViewInicio ilv = new ItensListViewInicio();
-            //nome do jogador
-            ilv.setM_name(m_db.selectNameJogador(jogador));
-            //pontos total
-            ilv.setM_pontos(String.valueOf(ptTotal));
-            //Qt gatos
-            ilv.setM_gatos(String.valueOf(catTotal));
-            //Diferenca de pontos - gatos.
-            ilv.setM_total_pontos(ptTotal - catTotal);
-            //Qt derrotas
-            ilv.setM_loses(losesTotal);
-            //Qt vitorias
-            ilv.setM_wins(winsTotal);
-            m_listItensInicio.add(ilv);
-        }
-        Collections.sort(m_listItensInicio, new comparatorDefault());
-        return m_listItensInicio;
-    }
-
-    private void loadListWinners(){
-        //Inicializacao da lista com os itens mostrados na tela.
-        m_itensListWinners = new ArrayList<>();
-        for(int i =0; i < m_date.size(); i++){
-            List<ItensListViewInicio> list = new ArrayList<>(loadListStart(m_date.get(i).getDateStart(), m_date.get(i).getDateEnd()));
-            ItensListWinners ilw = new ItensListWinners();
-            //Month
-            ilw.setM_month(String.valueOf(i + 1));
-            Log.i("Mes", String.valueOf(i + 1));
-            //Year
-            ilw.setM_year("2018");
-            Log.i("Ano", "2018");
-            //Points
-            ilw.setM_points(String.valueOf(list.get(0).getM_total_pontos()));
-            Log.i("Pontos", String.valueOf(list.get(0).getM_total_pontos()));
-            //Winner
-            ilw.setM_winner(list.get(0).getM_name());
-            Log.i("Winner", list.get(0).getM_name());
-            m_itensListWinners.add(ilw);
-        }
-        loadListView();
-}
 
     private void loadListView(){
         ArrayAdapter<ItensListWinners> adapter = new ArrayAdapter<ItensListWinners>( this,
@@ -156,10 +51,12 @@ public class WinnersActivity extends Activity{
                     p_convertView = getLayoutInflater().inflate( R.layout.activity_itens_winners, p_parent,
                             false );
                     viewHolder = new ViewHolderItem();
-                    viewHolder.textViewMonth = p_convertView.findViewById( R.id.tvMonth );
-                    viewHolder.textViewYear = p_convertView.findViewById( R.id.tvYear );
-                    viewHolder.textViewPoints = p_convertView.findViewById( R.id.tvPoints );
-                    viewHolder.textViewWinner = p_convertView.findViewById( R.id.tvWinner );
+                    viewHolder.tvMonth = p_convertView.findViewById( R.id.tvMonth );
+                    viewHolder.tvYear = p_convertView.findViewById( R.id.tvYear );
+                    viewHolder.tvWinner = p_convertView.findViewById( R.id.tvWinner );
+                    viewHolder.tvWinnerPoints = p_convertView.findViewById( R.id.tvWinnerPoints );
+                    viewHolder.tvCat = p_convertView.findViewById( R.id.tvCat );
+                    viewHolder.tvCatPoints = p_convertView.findViewById( R.id.tvCatPoints );
                     // store holder with view.
                     p_convertView.setTag( viewHolder );
                 }
@@ -168,136 +65,101 @@ public class WinnersActivity extends Activity{
                     viewHolder = ( ViewHolderItem )p_convertView.getTag();
                 }
                 ItensListWinners itemL = m_itensListWinners.get( p_position );
-                // Points
-                int points = Integer.valueOf(itemL.m_points);
-                if(points == 0) {
-                    // Month
-                    viewHolder.textViewMonth.setText("");
-                    // Year
-                    viewHolder.textViewYear.setText("");
 
-                    viewHolder.textViewPoints.setText("");
-                    // Winner
-                    viewHolder.textViewWinner.setText("");
-                }
-                else{
-                    // Month
-                    viewHolder.textViewMonth.setText(itemL.m_month);
-                    // Year
-                    viewHolder.textViewYear.setText(itemL.m_year);
+                // Month
+                viewHolder.tvMonth.setText( itemL.getMonth() );
+                // Year
+                viewHolder.tvYear.setText( itemL.getYear());
 
-                    viewHolder.textViewPoints.setText(itemL.m_points);
-                    // Winner
-                    viewHolder.textViewWinner.setText(itemL.m_winner);
-                }
+                viewHolder.tvWinner.setText( itemL.getWinner());
+                // Winner
+                viewHolder.tvWinnerPoints.setText( itemL.getWinnerPoints());
+
+                viewHolder.tvCat.setText( itemL.getCat());
+                // Winner
+                viewHolder.tvCatPoints.setText( itemL.getCatPoints());
+
                 return p_convertView;
             }
-            final class ViewHolderItem{
-                TextView textViewMonth;
-                TextView textViewYear;
-                TextView textViewPoints;
-                TextView textViewWinner;
+            static final class ViewHolderItem{
+                TextView tvMonth, tvYear, tvWinner, tvWinnerPoints, tvCat,
+                        tvCatPoints;
             }
         };
-        m_lvWinners.setAdapter( adapter );
-    }
-
-    private void CheckMonthYear(){
-        Date data = new Date();
-        Calendar c = Calendar.getInstance();
-        c.setTime(data);
-        // formata e exibe a data e hora
-        Format formatMonth = new SimpleDateFormat("MM");
-        m_month = formatMonth.format(c.getTime());
-        Format formatYear = new SimpleDateFormat("yyyy");
-        m_year = formatYear.format(c.getTime());
-        switch (m_month)
-        {
-            case "01":
-                setTitle("Pontos Dominó - Janeiro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "02":
-                setTitle("Pontos Dominó - Fevereiro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "29";
-                break;
-            case "03":
-                setTitle("Pontos Dominó - Março " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "04":
-                setTitle("Pontos Dominó - Abril " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
-                break;
-            case "05":
-                setTitle("Pontos Dominó - Maio " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "06":
-                setTitle("Pontos Dominó - Abril " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
-                break;
-            case "07":
-                setTitle("Pontos Dominó - Julho " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "08":
-                setTitle("Pontos Dominó - Agosto " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "09":
-                setTitle("Pontos Dominó - Setembro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
-                break;
-            case "10":
-                setTitle("Pontos Dominó - Outubro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-            case "11":
-                setTitle("Pontos Dominó - Novembro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "30";
-                break;
-            case "12":
-                setTitle("Pontos Dominó - Dezembro " + m_year);
-                m_dateStart = m_year +"-"+ m_month +"-"+ "01";
-                m_dateEnd = m_year +"-"+ m_month +"-"+ "31";
-                break;
-        }
+        ListView listView = findViewById( R.id.lvWinners );
+        listView.setAdapter( adapter );
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_winners);
-        Intent iDadosRecebidos = getIntent();
-        if ( iDadosRecebidos != null ){
-            Bundle parametrosRecebidos = iDadosRecebidos.getExtras();
-            if ( parametrosRecebidos != null ){
-                // vindo da activity main
-                m_retornoIdGrupo = parametrosRecebidos.getInt( "envioIdGrupo" );
-            }
+
+        checkBundle();
+
+        loadData();
+
+        loadListView();
+    }
+
+    private void loadData() {
+
+        Pontos pontos = new Pontos();
+        PontosPeriodo pontosPeriodo = new PontosPeriodo();
+
+        //Pega 3 meses de dados.
+        m_itensListWinners = new ArrayList<>();
+
+        List<String> listMonths = DateCGD.getPreviousMonthsDate(36);
+
+        for (String month : listMonths) {
+            String[] split = month.split(" - ");
+            String dateStart = split[0];
+            String dateEnd = split[1];
+
+            ItensListWinners item = new ItensListWinners();
+
+            // pega a data da string que esta com o seguinte formato: 01/01/2018
+            String[] splitDate = dateStart.split("-");
+
+            //Mes
+            item.setMonth( DateCGD.getInstance().getNameMonth( splitDate[1] ) );
+
+            //Ano
+            item.setYear(splitDate[0]);
+
+            pontosPeriodo = pontos.getCampeao(m_idGrupo, dateStart, dateEnd);
+
+            if (pontosPeriodo.getQtdWin() == 0)
+                continue;
+
+            //Nome do Winner.
+            item.setWinner(DbHelper.getInstance(getApplicationContext()).selectNameJogador(
+                    pontosPeriodo.getIdWinJogador()));
+
+            //Pontos do Winner.
+            item.setWinnerPoints(String.valueOf(pontosPeriodo.getQtdWin()));
+
+            //Nome do Cat.
+            item.setCat(DbHelper.getInstance(getApplicationContext()).selectNameJogador(
+                    pontosPeriodo.getIdGatosJogador()));
+
+            //Pontos do Cat.
+            item.setCatPoints(String.valueOf(pontosPeriodo.getQtdGatos()));
+
+            m_itensListWinners.add(item);
         }
-        // ...Buscando o valor do idGrupo cadastrado no Banco / Parametros
-        Parametro param = m_db.selectUmParametro( m_idParametro );
-        int valorIdGrupo = param.getValorParametro();
-        if ( m_retornoIdGrupo > 0 )
-            m_idGrupo = m_retornoIdGrupo;
-        else
-            m_idGrupo = valorIdGrupo;
-        m_lvWinners = (ListView)findViewById( R.id.lvWinners );
-        loadListDate();
-        loadListWinners();
+        Collections.reverse( m_itensListWinners );
+    }
+
+    private void checkBundle() {
+        if ( getIntent() != null ){
+            Bundle parametrosRecebidos = getIntent().getExtras();
+            if ( parametrosRecebidos != null ){
+                m_idGrupo = parametrosRecebidos.getInt( "envioIdGrupo" );
+            }else
+                finish();
+        }
     }
 
     /**
@@ -306,40 +168,9 @@ public class WinnersActivity extends Activity{
     @Override
     public void onBackPressed(){
         Intent it = new Intent( this, GrupoInicioActivity.class );
-        it.putExtra( "envioIdGrupo", m_retornoIdGrupo );
+        it.putExtra( "envioIdGrupo", m_idGrupo );
         startActivity( it );
         super.onBackPressed();
-    }
-
-    private void loadListDate() {
-        m_date = new ArrayList<>();
-        for (int i = 1; i < 13; i++){
-            if(i == 1 || i == 3|| i == 5 || i == 7 || i == 8){
-                m_dateStart = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "01";
-                m_dateEnd = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "31";
-            }
-            if(i == 10 || i == 12){
-                m_dateStart = "2018" + "-" + String.valueOf(i) + "-" + "01";
-                m_dateEnd = "2018" + "-" + String.valueOf(i) + "-" + "31";
-            }
-            if(i == 2 ){
-                m_dateStart = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "01";
-                m_dateEnd = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "29";
-            }
-            if(i == 4 || i == 6 || i == 9 || i == 11 ){
-                m_dateStart = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "01";
-                m_dateEnd = "2018" + "-" +"0"+ String.valueOf(i) + "-" + "30";
-            }
-            if(i == 11 ){
-                m_dateStart = "2018" + "-" + String.valueOf(i) + "-" + "01";
-                m_dateEnd = "2018" + "-" + String.valueOf(i) + "-" + "30";
-            }
-            DateCGD listDate = new DateCGD();
-            listDate.setDateStart(m_dateStart);
-            listDate.setDateEnd(m_dateEnd);
-            m_date.add(listDate);
-            Log.i("Mes", String.valueOf(i)+" " + m_dateStart + " " + m_dateEnd );
-        }
     }
 
     private void takeScreenshot(){
@@ -409,27 +240,6 @@ public class WinnersActivity extends Activity{
         Uri uri = Uri.fromFile( imageFile );
         intent.putExtra( Intent.EXTRA_STREAM, uri );
         startActivity( Intent.createChooser( intent, "Compartilhar imagem" ) );
-    }
-
-    class DateCGD{
-        private String dateStart;
-        private String dateEnd;
-
-        public String getDateStart() {
-            return dateStart;
-        }
-
-        public void setDateStart(String dateStart) {
-            this.dateStart = dateStart;
-        }
-
-        public String getDateEnd() {
-            return dateEnd;
-        }
-
-        public void setDateEnd(String dateEnd) {
-            this.dateEnd = dateEnd;
-        }
     }
 
     public class comparatorDefault implements Comparator<ItensListViewInicio>{

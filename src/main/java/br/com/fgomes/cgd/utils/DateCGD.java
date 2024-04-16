@@ -130,6 +130,30 @@ public class DateCGD {
         return mesesAnteriores;
     }
 
+    /**
+     * Metodo que recebe um inteiro indicando a quantidade de meses
+     * anteriores a serem retornados.
+     * @return retorna a lista de meses anterios com data inicio e fim em uma
+     * lista de strings.
+     */
+    public static List<String> getPreviousMonthsDate(int pAmount) {
+        LocalDate dataAtual = LocalDate.now();
+        List<String> mesesAnteriores = new ArrayList<>();
+
+        for (int i = 0; i < pAmount; i++) {
+            int mes = dataAtual.minusMonths(i + 1).getMonthValue();
+            int ano = dataAtual.minusMonths(i + 1).getYear();
+            int qtdDias = DateCGD.getInstance().getQtdDaysMonth(mes);
+            String mm = mes < 10 ? "0" + mes : String.valueOf(mes);
+            String dataInicio = ano + "-" + mm + "-" + "01";
+            String dataFim = ano + "-" + mm + "-" + qtdDias;
+            mesesAnteriores.add(dataInicio + " - " + dataFim);
+        }
+
+        Collections.reverse(mesesAnteriores);
+        return mesesAnteriores;
+    }
+
     public String getDateDayNow() {
         return getDateNow(1 );
     }

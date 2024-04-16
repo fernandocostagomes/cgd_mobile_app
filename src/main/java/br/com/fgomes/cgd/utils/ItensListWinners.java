@@ -5,56 +5,59 @@ package br.com.fgomes.cgd.utils;
  */
 
 public class ItensListWinners {
-    /** String para o textView que indicara o Mes*/
-    public String m_month;;
-    /** String para o textView que indicara o Ano*/
-    public String m_year;
-    /** String para o textView que indicara os Pontos*/
-    public String m_points;
-    /** String para o textView que indicara o Nome*/
-    public String m_winner;
+    private String month, year;
 
-    public ItensListWinners()
-    {
+    private String winner, winnerPoints, cat, catPoints;
+
+    public ItensListWinners() {
     }
 
-    public ItensListWinners(String p_month, String p_year, String p_points, String p_winner)
-    {
-        this.m_month = p_month;
-        this.m_year = p_year;
-        this.m_points = p_points;
-        this.m_winner = p_winner;
+    public String getMonth() {
+        return month;
     }
 
-    public String getM_month() {
-        return m_month;
+    public void setMonth(String month) {
+        this.month = month;
     }
 
-    public void setM_month(String m_month) {
-        this.m_month = m_month;
+    public String getYear() {
+        return year;
     }
 
-    public String getM_year() {
-        return m_year;
+    public void setYear(String year) {
+        this.year = year;
     }
 
-    public void setM_year(String m_year) {
-        this.m_year = m_year;
+    public String getWinner() {
+        return winner;
     }
 
-    public String getM_points() {
-        return m_points;
+    public void setWinner(String winner) {
+        this.winner = winner;
     }
 
-    public void setM_points(String m_points) {
-        this.m_points = m_points;
+    public String getWinnerPoints() {
+        return winnerPoints;
     }
 
-    public String getM_winner() {
-        return m_winner;
+    public void setWinnerPoints(String winnerPoints) {
+        this.winnerPoints = winnerPoints;
     }
 
-    public void setM_winner(String m_winner) {
-        this.m_winner = m_winner;
+    public String getCat() {
+        return cat;
+    }
+
+    public void setCat(String cat) {
+        this.cat = cat;
+    }
+
+    public String getCatPoints() {
+        return catPoints;
+    }
+
+    public void setCatPoints(String catPoints) {
+        this.catPoints = catPoints;
     }
 }
+
