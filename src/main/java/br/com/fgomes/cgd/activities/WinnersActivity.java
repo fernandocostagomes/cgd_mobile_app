@@ -110,7 +110,7 @@ public class WinnersActivity extends Activity{
         //Pega 3 meses de dados.
         m_itensListWinners = new ArrayList<>();
 
-        List<String> listMonths = DateCGD.getPreviousMonthsDate(36);
+        List<String> listMonths = DateCGD.getPreviousMonthsDate(18);
 
         for (String month : listMonths) {
             String[] split = month.split(" - ");

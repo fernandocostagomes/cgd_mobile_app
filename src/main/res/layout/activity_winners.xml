@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:orientation="vertical"
-    android:paddingLeft="5dp"
     android:paddingTop="10dp"
-    android:paddingRight="5dp"
     android:stretchColumns="1,0"
     tools:context="br.com.fgomes.cgd.activities.WinnersActivity">
 
@@ -19,7 +17,7 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
+            android:layout_weight="2"
             android:gravity="center_horizontal"
             android:text="Mês"
             android:textStyle="bold" />
@@ -29,7 +27,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Mês"
+            android:text="Ano"
             android:textStyle="bold" />
 
         <TextView
@@ -43,9 +41,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Pontos"
+            android:text="Pts"
             android:textStyle="bold" />
 
         <TextView
@@ -59,9 +57,9 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:gravity="center_horizontal"
-            android:text="Pontos"
+            android:text="Pts"
             android:textStyle="bold" />
     </TableRow>
 

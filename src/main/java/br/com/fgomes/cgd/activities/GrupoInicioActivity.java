@@ -202,6 +202,8 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
                     vh = new ViewHolderItem();
 
+                    vh.tvOrder = p_convertView.findViewById(R.id.tvOrder);
+
                     vh.tvDaysPlayed = p_convertView.findViewById(R.id.tvDaysPlayed);
 
                     vh.tvName = p_convertView.findViewById(R.id.tvName);
@@ -230,6 +232,8 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
                 ItensListViewInicio itemL = m_listItensInicio.get(p_position);
                 final int itenListJogador = p_position;
+
+                vh.tvOrder.setText(String.valueOf(p_position + 1));
 
                 vh.tvDaysPlayed.setText(String.valueOf((itemL.get_played_days())));
 
@@ -297,6 +301,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
             final class ViewHolderItem {
                 TextView
+                        tvOrder,
                         tvDaysPlayed,
                         tvName,
                         tvWins, tvWinsToday,
@@ -332,6 +337,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                             R.layout.activity_itens_partidas_dia, p_parent, false);
 
                     vh = new ViewHolderItem();
+                    vh.tvOrder = p_convertView.findViewById(R.id.tvOrder);
                     vh.tvV1 = p_convertView.findViewById(R.id.tvTitleV1);
                     vh.tvV2 = p_convertView.findViewById(R.id.tvTitleV2);
                     vh.tvP1 = p_convertView.findViewById(R.id.tvTitleP1);
@@ -349,6 +355,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
                 DbHelper dbHelper = DbHelper.getInstance(GrupoInicioActivity.this);
 
+                vh.tvOrder.setText(String.valueOf(p_position + 1));
                 // TextView V1
                 vh.tvV1.setText(dbHelper.selectNameJogador(Integer.parseInt(itemL.get_v1())));
                 // TextView V2
@@ -364,7 +371,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             }
 
             final class ViewHolderItem {
-                TextView tvV1, tvV2, tvP1, tvP2, tvPoints;
+                TextView tvOrder, tvV1, tvV2, tvP1, tvP2, tvPoints;
             }
         };
         m_listPartidasToday.setAdapter(adapter);
@@ -632,15 +639,13 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             /*
              * Mensagem de arquivos exportados com sucesso
              */
-            AlertDialog alertDialog = new AlertDialog.Builder(GrupoInicioActivity.this)
+            new AlertDialog.Builder(GrupoInicioActivity.this)
                     .setIcon(android.R.drawable.ic_dialog_alert)
-                    .setTitle(R.string.app_name).setMessage(R.string.info_successExport)
-                    .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    }).show();
+                    .setTitle(R.string.app_name)
+                    .setMessage(R.string.info_successExport)
+                    .setPositiveButton(android.R.string.ok, (dialog, which) ->
+                            dialog.dismiss())
+                    .show();
         }
     }
 

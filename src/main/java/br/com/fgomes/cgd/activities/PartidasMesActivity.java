@@ -1,8 +1,13 @@
 package br.com.fgomes.cgd.activities;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import android.app.*;
 import android.content.*;
@@ -13,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -22,6 +28,7 @@ import br.com.fgomes.cgd.objects.Jogador;
 import br.com.fgomes.cgd.objects.Parametro;
 import br.com.fgomes.cgd.utils.DbHelper;
 import br.com.fgomes.cgd.utils.ItensListPartidasMes;
+import br.com.fgomes.cgd.views.CheckBoxCGD;
 
 public class PartidasMesActivity extends Activity
 {
@@ -33,6 +40,58 @@ public class PartidasMesActivity extends Activity
    private int m_retornoIdGrupo;
    private int m_idGrupo;
    private int m_idParametro = 1;
+   private CheckBoxCGD mCheckBoxCGD;
+
+   private View.OnClickListener click(){
+      return v ->{
+         CheckBox checkboxSel = (CheckBox) v;
+         LinearLayout linearLayout = (LinearLayout) checkboxSel.getParent();
+         if( linearLayout.getId() == R.id.ll_won ){
+            if(mCheckBoxCGD.checkboxQtCheckBoxIsChecked(findViewById(R.id.ll_won)) > 2)
+               checkboxSel.setChecked(false);
+            else{
+               for(CheckBox checkBox : mCheckBoxCGD.checkBoxGenerateList(findViewById(R.id.ll_lose))){
+                  if(checkBox.getId() == checkboxSel.getId()){
+                     checkBox.setVisibility(checkboxSel.isChecked() ? View.GONE : View.VISIBLE);
+                     checkBox.setChecked(false);
+                  }
+               }
+            }
+         }
+         else if (linearLayout.getId() == R.id.ll_lose ){
+            if(mCheckBoxCGD.checkboxQtCheckBoxIsChecked(findViewById(R.id.ll_lose)) > 2)
+               checkboxSel.setChecked(false);
+            else{
+               for(CheckBox checkBox : mCheckBoxCGD.checkBoxGenerateList(findViewById(R.id.ll_won))){
+                  if(checkBox.getId() == checkboxSel.getId()){
+                     checkBox.setVisibility(checkboxSel.isChecked() ? View.GONE : View.VISIBLE);
+                     checkBox.setChecked(false);
+                  }
+               }
+            }
+         }
+      };
+   }
+
+   private void clickMarcarPonto(int pPontos) {
+      Button button = findViewById(R.id.marcarPonto);
+      button.setOnClickListener(v -> {
+         try {
+            DbHelper.getInstance(getApplicationContext()).insertPoint(
+                    mCheckBoxCGD.getIdsJogadoresSelecionados(findViewById(R.id.ll_won)).get(0),
+                    mCheckBoxCGD.getIdsJogadoresSelecionados(findViewById(R.id.ll_won)).get(1),
+                    pPontos,
+                    mCheckBoxCGD.getIdsJogadoresSelecionados(findViewById(R.id.ll_lose)).get(0),
+                    mCheckBoxCGD.getIdsJogadoresSelecionados(findViewById(R.id.ll_lose)).get(1),
+                    m_idGrupo);
+            Toast.makeText(getApplicationContext(), "Ponto marcado!", Toast.LENGTH_SHORT).show();
+            backToInit();
+         }
+         catch (Exception p_e){
+            p_e.printStackTrace();
+         }
+      });
+   }
 
    /**
     * Metodo que carrega a lista com os pontos.
@@ -100,47 +159,29 @@ public class PartidasMesActivity extends Activity
             viewHolder.textViewP2.setText( m_db.selectNameJogador( Integer.parseInt( itemL.get_p2() ) ) );
             // Total pontos
             viewHolder.textViewPoints.setText( itemL.get_points() );
+
             // Evento de toque no button para excluir a partida.
-            viewHolder.buttonDel.setOnClickListener( new View.OnClickListener()
-            {
-               @Override
-               public void onClick( View p_v )
-               {
-                  final AlertDialog.Builder dialogo = new AlertDialog.Builder(
-                          PartidasMesActivity.this );
-                  dialogo.setTitle( "Apagar partida" );
-                  dialogo.setMessage( "Confirmar exclusão de partida" );
-                  dialogo.setPositiveButton( "Ok",
-                          new DialogInterface.OnClickListener()
-                          {
-                             @Override
-                             public void onClick( DialogInterface dialog,
-                                                  int which )
-                             {
-                                if ( m_db.deletePoint( Integer.parseInt( itemL.get_id() ) ) )
-                                {
-                                   Toast.makeText( getApplicationContext(), "Ponto deletado.", Toast.LENGTH_SHORT ).show();
-                                   loadListPoints();
-                                   loadListView();
-                                }
-                             }
-                          } );
-                  dialogo.setNegativeButton( "Cancelar", new DialogInterface.OnClickListener()
-                  {
-                     @Override
-                     public void onClick( DialogInterface dialog, int which )
-                     {
-                        dialog.dismiss();
-                     }
-                  } );
-                  dialogo.show();
-               }
-            } );
-
-            //Abri a partida em um dialog para editar.
-            viewHolder.textViewId.setOnClickListener( p_v -> {
-               editPoint( itemL );
-
+            viewHolder.buttonDel.setOnClickListener(p_v -> {
+               final AlertDialog.Builder dialogo = new AlertDialog.Builder(
+                       PartidasMesActivity.this );
+               dialogo.setTitle( "Apagar partida" );
+               dialogo.setMessage( "Confirmar exclusão de partida" );
+               dialogo.setPositiveButton( "Ok",(dialog, which) -> {
+                          if ( m_db.deletePoint( Integer.parseInt( itemL.get_id() ) ) ){
+                             Toast.makeText( getApplicationContext(),
+                                     "Ponto deletado.",
+                                     Toast.LENGTH_SHORT ).show();
+                             loadListPoints();
+                             loadListView();
+                          }
+                       });
+               dialogo.setNegativeButton( "Cancelar", (dialog, which) ->
+                       dialog.dismiss());
+               dialogo.setNeutralButton( "Editar",    (dialog, which) -> {
+                  editPoint( Integer.parseInt( itemL.get_id() ) );
+                  dialog.dismiss();
+                       });
+               dialogo.show();
             });
 
             return p_convertView;
@@ -189,111 +230,32 @@ public class PartidasMesActivity extends Activity
       finish();
    }
 
-   private void editPoint( ItensListPartidasMes itemL )
+   private void montarLista( ){
+      List<LinearLayout> linearLayoutList = new ArrayList<>();
+      linearLayoutList.add( findViewById( R.id.ll_won ) );
+      linearLayoutList.add( findViewById( R.id.ll_lose ) );
+      for(LinearLayout linearLayout : linearLayoutList) {
+         linearLayout.removeAllViews();
+         LinkedHashMap<String, String> alphabet = new LinkedHashMap<>();
+         linearLayout.removeAllViews();
+         Set<?> set = alphabet.entrySet();
+         Iterator<?> i = set.iterator();
+         while (i.hasNext()) {
+            Map.Entry me = (Map.Entry) i.next();
+            CheckBox checkBox = new CheckBox(this);
+            checkBox.setId(Integer.parseInt(me.getKey().toString()));
+            checkBox.setText(me.getValue().toString());
+            checkBox.setOnClickListener(click());
+            linearLayout.addView(checkBox);
+         }
+      }
+   }
+
+   private void editPoint( int pIdPoint )
    {
       final Dialog dialog = new Dialog( this );
       dialog.setContentView( R.layout.activity_editar_partida );
       dialog.setTitle( "Editar partida" );
-
-      TextView tvId = dialog.findViewById( R.id.tv_id_partida );
-      TextView tvData = dialog.findViewById( R.id.tv_data_partida );
-      //Coluna de vencedores
-      CheckBox cbWon1 = dialog.findViewById( R.id.cb_won1_edit );
-      CheckBox cbWon2 = dialog.findViewById( R.id.cb_won2_edit );
-      CheckBox cbWon3 = dialog.findViewById( R.id.cb_won3_edit );
-      CheckBox cbWon4 = dialog.findViewById( R.id.cb_won4_edit );
-
-      //Coluna de perdedores
-      CheckBox cbLose1 = dialog.findViewById( R.id.cb_lose1_edit );
-      CheckBox cbLose2 = dialog.findViewById( R.id.cb_lose2_edit );
-      CheckBox cbLose3 = dialog.findViewById( R.id.cb_lose3_edit );
-      CheckBox cbLose4 = dialog.findViewById( R.id.cb_lose4_edit );
-
-      RadioButton rbPartGato =
-              dialog.findViewById( R.id.rb_edit_partida_gato );
-      RadioButton rbPartPts2 =
-              dialog.findViewById( R.id.rb_edit_partida_pts_2 );
-      RadioButton rbPartPts1 =
-              dialog.findViewById( R.id.rb_edit_partida_pts_1 );
-
-      Button btEdit = dialog.findViewById( R.id.bt_edit_partida );
-
-      String v1 = m_db.selectNameJogador( Integer.parseInt( itemL.get_v1() ) );
-      String v2 = m_db.selectNameJogador( Integer.parseInt( itemL.get_v2() ) );
-      String p1 = m_db.selectNameJogador( Integer.parseInt( itemL.get_p1() ) );
-      String p2 = m_db.selectNameJogador( Integer.parseInt( itemL.get_p2() ) );
-
-      //Textview com o id da partida.
-      tvId.setText( itemL.get_id() );
-
-      //Textview com a data da partida.
-      tvData.setText( android.text.format.DateFormat.format( "dd/MM",
-              Long.parseLong( itemL.get_date() ) ) );
-
-      //CheckBox dos jogadores, pega o valor do nome do hash criado acima.
-      cbWon1.setId(Integer.parseInt(itemL.get_v1()));
-      cbWon1.setText( v1 );
-      cbWon1.setChecked( true );
-
-      cbWon2.setId(Integer.parseInt(itemL.get_v2()));
-      cbWon2.setText( v2 );
-      cbWon2.setChecked( true );
-
-      cbWon3.setId(Integer.parseInt(itemL.get_p1()));
-      cbWon3.setText( p1 );
-      cbWon3.setChecked( false );
-
-      cbWon4.setId(Integer.parseInt(itemL.get_p2()));
-      cbWon4.setText( p2 );
-      cbWon4.setChecked( false );
-
-      cbLose1.setId(Integer.parseInt(itemL.get_p1()));
-      cbLose1.setText( p1 );
-      cbLose1.setChecked(true);
-
-      cbLose2.setId(Integer.parseInt(itemL.get_p2()));
-      cbLose2.setText( p2 );
-      cbLose2.setChecked(true);
-
-      cbLose3.setId(Integer.parseInt(itemL.get_v1()));
-      cbLose3.setText( v1 );
-      cbLose3.setChecked(false);
-
-      cbLose4.setId(Integer.parseInt(itemL.get_v2()));
-      cbLose4.setText( v2 );
-      cbLose4.setChecked(false);
-
-      switch (itemL.get_points()) {
-         case "3" -> {
-            rbPartGato.setChecked(true);
-            rbPartPts1.setChecked(false);
-            rbPartPts2.setChecked(false);
-         }
-         case "2" -> {
-            rbPartPts2.setChecked(true);
-            rbPartGato.setChecked(false);
-            rbPartPts1.setChecked(false);
-         }
-         case "1" -> {
-            rbPartPts1.setChecked(true);
-            rbPartPts2.setChecked(false);
-            rbPartGato.setChecked(false);
-         }
-      }
-
-      btEdit.setOnClickListener( p_v -> {
-//         editarPartida(
-//                 itemL.get_id(),
-//                 m_db.selectJogadorByName( , m_idGrupo ),
-//                 cbWon2,
-//                 cbLose1,
-//                 cbLose2,
-//                 rbPartGato,
-//                 rbPartPts2,
-//                 rbPartPts1,
-//                 dialog );
-
-      });
 
       dialog.show();
    }

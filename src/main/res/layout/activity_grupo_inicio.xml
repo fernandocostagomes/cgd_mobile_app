@@ -44,6 +44,13 @@
             android:layout_weight="1">
 
             <TextView
+                android:id="@+id/tvTitleOrder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:textStyle="bold" />
+
+            <TextView
                 android:id="@+id/tvTitleName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -150,7 +157,7 @@
             <ListView
                 android:id="@+id/lvJogadores"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"></ListView>
+                android:layout_height="wrap_content"/>
         </TableRow>
         <TableRow
             android:layout_width="match_parent"
@@ -371,6 +378,15 @@
             android:layout_height="match_parent"
             android:paddingLeft="1dp"
             android:paddingRight="1dp">
+
+            <TextView
+                android:id="@+id/tvOrder"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:gravity="center_horizontal"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvTitleV1"
