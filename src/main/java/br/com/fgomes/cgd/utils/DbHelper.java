@@ -404,20 +404,18 @@ public class DbHelper extends SQLiteOpenHelper
     *
     * @return lista com todos os pontos.
     */
-   public List<ItensListPartidasMes> selectItensPartidasMes()
-   {
+   public List<ItensListPartidasMes> selectItensPartidasMes(int pIdGroup, String pOrderbY){
       List<ItensListPartidasMes> resultList = new ArrayList<ItensListPartidasMes>();
 
       SQLiteDatabase db = getReadableDatabase();
 
-      String SqlSelectAllPoints = "SELECT * FROM Point";
+      String sqlSelectAllPoints = "SELECT * FROM Point WHERE idGrupo = "
+              + pIdGroup + " order by idPoint " + pOrderbY;
 
-      Cursor c = db.rawQuery( SqlSelectAllPoints, null );
+      Cursor c = db.rawQuery( sqlSelectAllPoints, null );
 
       if ( c.moveToFirst() )
-      {
-         do
-         {
+         do{
             ItensListPartidasMes part = new ItensListPartidasMes();
 
             part.set_id( String.valueOf( c.getInt( 0 ) ) );
@@ -430,7 +428,7 @@ public class DbHelper extends SQLiteOpenHelper
 
             resultList.add( part );
          } while ( c.moveToNext() );
-      }
+
       db.close();
       return resultList;
    }
