@@ -99,16 +99,7 @@ public class DbHelper extends SQLiteOpenHelper
       db.insert( "Grupo", null, cv );
       db.close();
    }
-   // ........Inserir Parametro de Grupo.............
 
-   public void inserirParametroGrupo( int p_valor ){
-      int idParametro = 1;
-      SQLiteDatabase db = getWritableDatabase();
-      String SqlInsertValorGrupo = "INSERT INTO Parametro VALUES(" + idParametro + "," + p_valor + ", 0);";
-      db.execSQL( SqlInsertValorGrupo );
-      db.execSQL( SqlInsertValorGrupo );
-      db.close();
-   }
    // ........Selecionar um Grupo por parametro......................
 
    public Parametro selectUmParametro( int p_idParametro ){
@@ -135,29 +126,8 @@ public class DbHelper extends SQLiteOpenHelper
       db.execSQL( SqlUpdateValorGrupo );
       db.close();
    }
-   // ........Listar todos os Grupos..............
 
-   public List<Grupo> selectTodosGrupos(){
-      List<Grupo> listgrupo = new ArrayList<Grupo>();
-      SQLiteDatabase db = getReadableDatabase();
-      String SqlSelectTodosGrupos = "SELECT * FROM Grupo";
-      Cursor c = db.rawQuery( SqlSelectTodosGrupos, null );
-      if ( c.moveToFirst() ){
-         do{
-            Grupo grupo = new Grupo();
-            grupo.setIdGrupo( c.getInt( 0 ) );
-            grupo.setNomeGrupo( c.getString( 1 ) );
-            grupo.setSenhaGrupo( c.getString( 2 ) );
-            grupo.setDataGrupo( Date.valueOf( c.getString( 3 ) ) );
-            grupo.setTelefoneGrupo( c.getInt( 4 ) );
-            listgrupo.add( grupo );
-         } while ( c.moveToNext() );
-      }
-      db.close();
-      return listgrupo;
-   }
    // ........Listar um Grupo......................
-
    public Grupo selectUmGrupo( String p_nomeGrupo ){
       Grupo grupo = new Grupo();
       SQLiteDatabase db = getReadableDatabase();
@@ -173,27 +143,6 @@ public class DbHelper extends SQLiteOpenHelper
       }
       c.close();
       return grupo;
-   }
-   // ........Listar um Jogador......................
-
-   public Jogador selectUmJogador( int p_id ){
-      Jogador jogador = new Jogador();
-      SQLiteDatabase db = getReadableDatabase();
-      String SqlSelectUmJogador = "SELECT * FROM Jogador WHERE idJogador = '" + p_id + "';";
-      db.rawQuery( SqlSelectUmJogador, null );
-      Cursor c = db.rawQuery( SqlSelectUmJogador, null );
-      if ( c.moveToFirst() ){
-         jogador.setIdJogador( c.getInt( 0 ) );
-         jogador.setNomeJogador( c.getString( 1 ) );
-         jogador.setTelefoneJogador( c.getInt( 2 ) );
-         jogador.setEmailJogador( c.getString( 3 ) );
-         jogador.setDataJogador( Date.valueOf( c.getString( 4 ) ) );
-         jogador.setIdGrupo( c.getInt( 5 ) );
-         jogador.setGatoJogador( c.getInt( 6 ) );
-         jogador.setPointJogador( c.getInt( 7 ) );
-      }
-      c.close();
-      return jogador;
    }
 
    // ........Listar um Jogador......................
@@ -211,16 +160,11 @@ public class DbHelper extends SQLiteOpenHelper
       return result;
    }
 
-   // ........Listar um Jogador......................
-
-   public String selectJogadorByName( int p_id, int p_idGrupo){
+   public String selectNameGrupo( int p_id ){
       String result = "";
       SQLiteDatabase db = getReadableDatabase();
-      String SqlSelectUmJogador =
-              "SELECT * FROM Jogador " +
-                      "WHERE idJogador = '" + p_id + " ' and idGrupo = '" + p_idGrupo + "';";
-      db.rawQuery( SqlSelectUmJogador, null );
-      Cursor c = db.rawQuery( SqlSelectUmJogador, null );
+      String sqlSelect = "SELECT * FROM Grupo WHERE idGrupo = '" + p_id + "';";
+      Cursor c = db.rawQuery( sqlSelect, null );
       if ( c.moveToFirst() ){
          result = c.getString( 1 );
       }
@@ -264,6 +208,25 @@ public class DbHelper extends SQLiteOpenHelper
       return listjogador;
    }
 
+   public List<Grupo> selectGrupos(){
+      List<Grupo> listGrupo = new ArrayList<>();
+      SQLiteDatabase db = getReadableDatabase();
+      String SqlSelectGrupos = "SELECT * FROM Grupo";
+      Cursor c = db.rawQuery( SqlSelectGrupos, null );
+      if ( c.moveToFirst() ){
+         do{
+            Grupo grupo = new Grupo();
+            grupo.setNomeGrupo( c.getString( 1 ) );
+            grupo.setSenhaGrupo( c.getString( 2 ) );
+            grupo.setDataGrupo( Date.valueOf( c.getString( 3 ) ) );
+            grupo.setTelefoneGrupo( c.getInt( 4 ) );
+            listGrupo.add( grupo );
+         } while ( c.moveToNext() );
+      }
+      db.close();
+      return listGrupo;
+   }
+
    public List<Pontos> selectPointsDay(int p_idGrupo ){
       List<Pontos> listPoint = new ArrayList<Pontos>();
       SQLiteDatabase db = getReadableDatabase();
@@ -285,6 +248,30 @@ public class DbHelper extends SQLiteOpenHelper
             point.setQtdPoint( c.getInt( 4 ) );
             point.setIdGato1(c.getInt(5));
             point.setIdGato2(c.getInt(6));
+            listPoint.add( point );
+         } while ( c.moveToNext() );
+      }
+      db.close();
+      return listPoint;
+   }
+
+   public List<Pontos> selectPoints( ){
+      List<Pontos> listPoint = new ArrayList<>();
+      SQLiteDatabase db = getReadableDatabase();
+      String SqlSelectPointDay = "select * from Point";
+      Cursor c = db.rawQuery( SqlSelectPointDay, null );
+      if ( c.moveToFirst() ){
+         do{
+            Pontos point = new Pontos();
+            point.setIdPoint( c.getInt( 0 ) );
+            long teste = c.getLong( 1 );
+            point.setDtmPoint( new Date( teste ) );
+            point.setIdJogador1( c.getInt( 2 ) );
+            point.setIdJogador2( c.getInt( 3 ) );
+            point.setQtdPoint( c.getInt( 4 ) );
+            point.setIdGato1(c.getInt(5));
+            point.setIdGato2(c.getInt(6));
+            point.setIdGrupo(c.getInt(7));
             listPoint.add( point );
          } while ( c.moveToNext() );
       }
@@ -469,39 +456,6 @@ public class DbHelper extends SQLiteOpenHelper
       return resultList;
    }
 
-   /**
-    * Metodo que seleciona todos os pontos da tabela pontos.
-    *
-    * @return lista com todos os pontos.
-    */
-   public List<Pontos> selectAllPoints()
-   {
-      List<Pontos> resultList = new ArrayList<Pontos>();
-      SQLiteDatabase db = getReadableDatabase();
-      String SqlSelectAllPoints = "SELECT * FROM Point";
-      Cursor c = db.rawQuery( SqlSelectAllPoints, null );
-      if ( c.moveToFirst() )
-      {
-         do
-         {
-            Pontos point = new Pontos();
-
-            point.setIdPoint(c.getInt( 0 ) );
-            long teste = c.getLong( 1 );
-            point.setDtmPoint( new Date( teste ) );
-            point.setIdJogador1(c.getInt( 2 ) ) ;
-            point.setIdJogador2(c.getInt( 3 ) ) ;
-            point.setQtdPoint(c.getInt( 4 )  );
-            point.setIdGato1(c.getInt( 5 ) ) ;
-            point.setIdGato2(c.getInt( 6 ) ) ;
-            point.setIdGrupo(c.getInt( 7 ) ) ;
-            resultList.add( point );
-         } while ( c.moveToNext() );
-      }
-      db.close();
-      return resultList;
-   }
-
    public List<Pontos> consultarPointDetalhado(int p_idJogador )
    {
 
@@ -565,36 +519,6 @@ public class DbHelper extends SQLiteOpenHelper
       return result;
    }
 
-   public boolean updatePoint(
-           int p_v1,
-           int p_v2,
-           int p_qtPontos,
-           int p_p1,
-           int p_p2,
-           int p_idPoint ){
-      boolean result = false;
-      try{
-         SQLiteDatabase db = getWritableDatabase();
-         ContentValues cv = new ContentValues();
-
-         cv.put( "dataPoint", System.currentTimeMillis() );
-         String sqlUpdatePoint =
-                 "UPDATE Point set idJogador1 = '" + p_v1 + "'" +
-                            ", idJogador2 = '" + p_v2 + "'" +
-                            ", qtdPoint = '" + p_qtPontos + "'" +
-                            ", idGato1 = '" + p_p1 + "'" +
-                            ", idGato2 = '" + p_p2 + "'" +
-                            " WHERE idPoint = '" + p_idPoint + "';";
-         db.execSQL( sqlUpdatePoint );
-         db.close();
-         result = true;
-      }
-      catch ( Exception p_e ){
-         p_e.printStackTrace();
-      }
-      return result;
-   }
-
    public boolean deletePoint( int p_idPoint )
    {
       boolean result = false;
@@ -612,69 +536,6 @@ public class DbHelper extends SQLiteOpenHelper
       return result;
    }
 
-   // Método para exportar dados de todas as tabelas
-
-   public void exportAllTablesData() {
-
-      // Abrir o banco de dados em modo somente leitura
-      SQLiteDatabase db = mInstance.getReadableDatabase();
-
-      List<String> tableNames = new ArrayList<>();
-      Cursor cursorTableNames = db.rawQuery("SELECT name FROM sqlite_master " +
-              "WHERE type='table'", null);
-      while (cursorTableNames.moveToNext()) {
-         tableNames.add(cursorTableNames.getString(0));
-      }
-
-      // Iterar sobre cada tabela
-      for (String tableName : tableNames) {
-         // Consulta SQL para selecionar todos os registros da tabela atual
-         String query = "SELECT * FROM " + tableName;
-         Cursor cursor = db.rawQuery(query, null);
-
-         // Salvar os dados em um arquivo de texto
-         saveToTextFile(tableName, cursor);
-
-         // Salvar os dados no Shared Memory
-         saveToSharedMemory(tableName, cursor);
-
-         // Fechar o cursor após o uso
-         cursor.close();
-      }
-
-      // Fechar o banco de dados após o uso
-      db.close();
-   }
-   // Método para salvar os dados em um arquivo de texto
-
-   private void saveToTextFile(String tableName, Cursor cursor) {
-      // Nome do arquivo onde os dados serão salvos
-      String fileName = tableName + ".txt";
-      File file = new File( mContext.getFilesDir(), fileName );
-
-      try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
-         // Iterar sobre o cursor e escrever os dados no arquivo
-         while (cursor.moveToNext()) {
-            // Implemente a lógica para escrever os dados no arquivo
-            // Aqui estou apenas imprimindo os dados no log
-            for (int i = 0; i < cursor.getColumnCount(); i++) {
-               String columnName = cursor.getColumnName(i);
-               String value = cursor.getString(i);
-               writer.write(columnName + ": " + value + "\n");
-            }
-            writer.write("\n");
-         }
-      } catch (IOException e) {
-         Log.e(TAG, "Erro ao salvar dados em arquivo de texto: " + e.getMessage());
-      }
-   }
-   // Método para salvar os dados no Shared Memory
-
-   private void saveToSharedMemory(String tableName, Cursor cursor) {
-      // Implemente a lógica para salvar os dados no Shared Memory
-      // Aqui você precisará escrever os dados no Shared Memory de acordo com sua implementação
-      Log.d(TAG, "Salvando dados da tabela " + tableName + " no Shared Memory...");
-   }
    /**
     * Metodo que retorna a instancia da classe.
     *

@@ -1,48 +1,42 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="br.com.fgomes.cgd.GrupoInicio">
+    tools:context=".activities.GrupoInicioActivity">
 
     <item
         android:id="@+id/action_add_player"
+        android:icon="@drawable/ic_launcher"
         android:orderInCategory="100"
-        android:title=""
-        tools:icon="@android:drawable/ic_menu_add"
-        app:showAsAction="withText|ifRoom"/>
+        android:title="Add jogador"
+        app:showAsAction="always"/>
 
     <item
         android:id="@+id/action_settings"
         android:orderInCategory="100"
-        android:title="@string/action_export"
-        app:showAsAction="never" />
+        android:title="@string/action_export" />
 
     <item
         android:id="@+id/action_points"
         android:orderInCategory="100"
-        android:title="@string/points"
-        app:showAsAction="never" />
+        android:title="@string/points" />
 
     <item
         android:id="@+id/action_winners"
         android:orderInCategory="100"
-        android:title="@string/winners"
-        app:showAsAction="never" />
+        android:title="@string/winners" />
 
     <item
         android:id="@+id/action_send_print"
         android:orderInCategory="100"
-        android:title="@string/send_print"
-        app:showAsAction="never" />
+        android:title="@string/send_print"/>
 
     <item
         android:id="@+id/action_login"
         android:orderInCategory="100"
-        android:title="Login"
-        app:showAsAction="never" />
+        android:title="Login"/>
 
     <item
         android:id="@+id/action_out"
         android:orderInCategory="100"
-        android:title="@string/log_out"
-        app:showAsAction="never" />
+        android:title="@string/log_out" />
 </menu>

@@ -9,6 +9,7 @@ import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
+import android.graphics.Point;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -33,11 +34,27 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import br.com.fgomes.cgd.R;
+import br.com.fgomes.cgd.objects.Grupo;
 import br.com.fgomes.cgd.objects.Jogador;
 import br.com.fgomes.cgd.objects.Pontos;
+import br.com.fgomes.cgd.room.CgdDatabase;
+import br.com.fgomes.cgd.room.model.Game;
+import br.com.fgomes.cgd.room.model.Permission;
+import br.com.fgomes.cgd.room.model.Player;
+import br.com.fgomes.cgd.room.model.PlayerTribe;
+import br.com.fgomes.cgd.room.model.Punctuation;
+import br.com.fgomes.cgd.room.model.Tribe;
+import br.com.fgomes.cgd.room.service.GameService;
+import br.com.fgomes.cgd.room.service.PermissionService;
+import br.com.fgomes.cgd.room.service.PlayerService;
+import br.com.fgomes.cgd.room.service.PlayerTribeService;
+import br.com.fgomes.cgd.room.service.PunctuationService;
+import br.com.fgomes.cgd.room.service.TribeService;
 import br.com.fgomes.cgd.utils.DateCGD;
 import br.com.fgomes.cgd.utils.DbHelper;
 import br.com.fgomes.cgd.utils.ItensListPartidasMes;
@@ -571,7 +588,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
 
         m_today = m_year + "-" + m_month + "-" + today;
 
-        setTitle("Dominó - " + today + " " + DateCGD.getInstance().getNameMonth(m_month) + " " + m_year);
+        setTitle( today + " " + DateCGD.getInstance().getNameMonth(m_month) + " " + m_year);
 
         //Data inicial completa para buscas.
         m_dateStart = m_year + "-" + m_month + "-01";
@@ -649,6 +666,204 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
         }
     }
 
+    private void populateusers() {
+
+        List<Player> players = PlayerService.Companion.playerSelectAll(getApplicationContext());
+
+        //Deleta tudo
+        for ( Player player : players ) {
+            CgdDatabase.Companion.getInstance(getApplicationContext()).playerDao().delete(player);
+        }
+
+        List<Jogador> jogadores =
+                DbHelper.getInstance(this).selectTodosJogadores();
+
+        Set<String> idsVistos = new HashSet<>();
+        List<Jogador> listaSemDuplicatas = new ArrayList<>();
+
+        for (Jogador item : jogadores) {
+            if (idsVistos.add(item.getNomeJogador())) {
+                // Adiciona o ID ao conjunto e verifica se foi adicionado com sucesso
+                listaSemDuplicatas.add(item);
+            }
+        }
+
+        for (Jogador jogador : listaSemDuplicatas ){
+            Player player = new Player();
+            player.setName( jogador.getNomeJogador() );
+            player.setPhone( jogador.getTelefoneJogador() );
+            player.setEmail( jogador.getEmailJogador() );
+            player.setPwd( jogador.getNomeJogador() + "@2024" );
+            player.setData( jogador.getDataJogador() );
+            PlayerService.Companion.playerInsert(getApplicationContext(), player);
+        }
+    }
+
+    private void populateGroups() {
+
+        List<Tribe> tribeList = TribeService.Companion.tribeSelectAll(getApplicationContext());
+        for ( Tribe tribe : tribeList ) {
+            CgdDatabase.Companion.getInstance(getApplicationContext()).tribeDao().delete(tribe);
+        }
+
+        List<Grupo> grupoList = DbHelper.getInstance(this).selectGrupos();
+
+        List<Player> listPlayer =
+                PlayerService.Companion.playerSelectAll(getApplicationContext());
+        Player player = new Player();
+        for ( Player playerListItem : listPlayer ) {
+            if ( playerListItem.getName().equals("Fernando") ){
+                player = playerListItem;
+                break;
+            }
+        }
+
+        List<Long> longList = new ArrayList<>();
+        longList.add(1L);
+        longList.add(3L);
+
+        //Deleta tudo
+        for ( Grupo grupo : grupoList ) {
+            Tribe tribe = new Tribe();
+            tribe.setName( grupo.getNomeGrupo() );
+            tribe.setIdPlayer( player.getId() );
+            tribe.setPassword( grupo.getSenhaGrupo() );
+            tribe.setData( grupo.getDataGrupo() );
+            tribe.setPunctuation( longList );
+            TribeService.Companion.tribeInsert(getApplicationContext(), tribe);
+        }
+    }
+
+    private void populatePonctuation() {
+
+        List<Punctuation> punctuations =
+                PunctuationService.Companion.punctuationSelectAll(
+                        getApplicationContext());
+
+        //Deleta tudo
+        for ( Punctuation punctuation : punctuations) {
+            CgdDatabase.Companion.getInstance(getApplicationContext())
+                    .punctuationDao().delete(punctuation);
+        }
+
+        Punctuation punctuation1 = new Punctuation();
+        punctuation1.setName("Simples");
+        punctuation1.setValue(1);
+        punctuation1.setData(new Date());
+        PunctuationService.Companion.punctuationInsert(getApplicationContext(), punctuation1);
+
+        Punctuation punctuation2 = new Punctuation();
+        punctuation2.setName("Gato");
+        punctuation2.setValue(3);
+        punctuation2.setData(new Date());
+        PunctuationService.Companion.punctuationInsert(getApplicationContext(), punctuation2);
+    }
+
+    private void populatePermission() {
+        List<Permission> permissions =
+                PermissionService.Companion.permissionSelectAll(getApplicationContext());
+
+        //Deleta tudo
+        for ( Permission permission : permissions ) {
+            CgdDatabase.Companion.getInstance(getApplicationContext()).permissionDao().delete(permission);
+        }
+
+        Permission permission1 = new Permission();
+        permission1.setName("Jogador");
+        permission1.setDescription("Jogador simples");
+        permission1.setData(new Date());
+        PermissionService.Companion.permissionInsert(getApplicationContext(), permission1);
+
+        Permission permission2 = new Permission();
+        permission2.setName("Admin");
+        permission2.setDescription("Administrador");
+        permission2.setData(new Date());
+        PermissionService.Companion.permissionInsert(getApplicationContext(), permission2);
+    }
+
+    private void populatePlayerTribe() {
+
+        List<PlayerTribe> playerTribeList = PlayerTribeService.Companion
+                .playerTribeSelectAll(getApplicationContext());
+
+        //Deleta tudo
+        for ( PlayerTribe playerTribe : playerTribeList ) {
+            CgdDatabase.Companion.getInstance(getApplicationContext())
+                    .playerTribeDao().delete(playerTribe);
+        }
+
+        List<Jogador> jogadores = DbHelper.getInstance(this)
+                .selectTodosJogadores();
+
+        List<Permission> permissions = PermissionService.Companion
+                .permissionSelectAll(getApplicationContext());
+        List<Long> permissionAdmin = new ArrayList<>();
+        List<Long> permissionJogador = new ArrayList<>();
+
+        for ( Permission permission : permissions ) {
+            if ( permission.getName().contains("Admin") )
+                permissionAdmin.add(permission.getId());
+            if ( permission.getName().contains("Jogador") )
+                permissionJogador.add(permission.getId());
+        }
+
+        for ( Jogador jogador : jogadores ) {
+            Player player = PlayerService.Companion.playerSelectByName(
+                    getApplicationContext(), jogador.getNomeJogador());
+
+            PlayerTribe playerTribe = new PlayerTribe();
+            playerTribe.setIdPlayer(player.getId());
+            playerTribe.setIdTribe(jogador.getIdGrupo());
+            playerTribe.setPermission(
+                    jogador.getNomeJogador().equals( "Fernando") ?
+                            permissionAdmin : permissionJogador);
+            playerTribe.setData(jogador.getDataJogador());
+            PlayerTribeService.Companion.playerTribeInsert(getApplicationContext(), playerTribe);
+        }
+    }
+
+    private void populateGames(){
+
+        //Dropa a tabela antes.
+        CgdDatabase.Companion.getInstance(getApplicationContext()).
+                gameDao().dropTable();
+
+        List<Pontos> pointList =
+                DbHelper.getInstance(this).selectPoints();
+
+        for (Pontos pointListItem : pointList) {
+            Game game = new Game();
+            game.setIdtribe( getGrupoId(pointListItem.getIdGrupo()));
+            //Ganhador 1
+            game.setIdwinpri( getPlayerId(pointListItem.getIdJogador1()));
+            //Ganhador 2
+            game.setIdwinsec(getPlayerId(pointListItem.getIdJogador2()));
+            //Perdedor 1
+            game.setIdlosepri( getPlayerId(pointListItem.getIdGato1()));
+            //Perdedor 2
+            game.setIdlosesec(getPlayerId(pointListItem.getIdGato2()));
+            //Pontos
+            game.setQtd( pointListItem.getQtdPoint());
+            //Data
+            game.setData(pointListItem.getDtmPoint());
+            GameService.Companion.gameInsert(getApplicationContext(), game);
+        }
+    }
+
+    private Long getGrupoId( int id ){
+        String name = DbHelper.getInstance(getApplicationContext())
+                        .selectNameGrupo(id);
+        return TribeService.Companion.tribeSelectByName(
+                getApplicationContext(), name).getId();
+    }
+
+    private Long getPlayerId( int id ){
+        String name = DbHelper.getInstance(getApplicationContext())
+                        .selectNameJogador(id);
+        return PlayerService.Companion.playerSelectByName(
+                getApplicationContext(), name).getId();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -669,6 +884,13 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
         loadViewGamesToday();
 
         loadListWinnerLastFourMonths();
+
+//        populateusers();
+//        populateGroups();
+//        populatePonctuation();
+//        populatePermission();
+//        populatePlayerTribe();
+//        populateGames();
     }
 
     @Override

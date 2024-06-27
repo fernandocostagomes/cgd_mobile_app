@@ -29,46 +29,46 @@
             android:name=".activities.CadastroGrupoActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_cadastro_grupo"
-        android:noHistory="true"></activity>
+        android:noHistory="true"/>
         <activity
             android:name=".activities.GrupoInicioActivity"
             android:excludeFromRecents="true"
-        android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".activities.CadastroJogadorActivity"
             android:excludeFromRecents="true"
-        android:label="@string/title_activity_cadastro_jogador"></activity>
+            android:label="@string/title_activity_cadastro_jogador" />
         <activity
             android:name=".activities.EsqueciSenhaGrupoActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_esqueci_senha_grupo"
-        android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".activities.ConsultaJogadorActivity"
             android:excludeFromRecents="true"
             android:label="@string/title_activity_consulta_jogador"
-        android:noHistory="true"></activity>
+            android:noHistory="true" />
         <activity
             android:name=".activities.ConsultaPontoJogadorActivity"
-        android:label="@string/title_activity_consulta_ponto_jogador"></activity>
+            android:label="@string/title_activity_consulta_ponto_jogador" />
         <activity
             android:name=".activities.ConsultarPontosDiaActivity"
-        android:label="@string/title_activity_consultar_pontos_dia"></activity>
+        android:label="@string/title_activity_consultar_pontos_dia"/>
         <activity
             android:name=".activities.GraficoPontosDiaActivity"
-        android:label="@string/title_activity_grafico_pontos_dia"></activity>
+        android:label="@string/title_activity_grafico_pontos_dia"/>
         <activity
             android:name=".activities.PartidasMesActivity"
-        android:label="@string/title_activity_partidas_mes"></activity>
+        android:label="@string/title_activity_partidas_mes"/>
         <activity
             android:name=".activities.MarcarPonto2Activity"
-            android:label="@string/title_activity_point"></activity>
+            android:label="@string/title_activity_point"/>
         <activity
             android:name=".activities.PontosDiaActivity"
-        android:label="@string/title_activity_pontos_perido"></activity>
+        android:label="@string/title_activity_pontos_perido"/>
         <activity
             android:name=".activities.WinnersActivity"
-        android:label="@string/winners"></activity>
+        android:label="@string/winners"/>
         <activity
             android:name=".activities.LoginGroupActivity"
             android:exported="false"
