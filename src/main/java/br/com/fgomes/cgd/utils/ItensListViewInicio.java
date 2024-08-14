@@ -17,26 +17,12 @@ public class ItensListViewInicio{
    private int m_wins;
    /** int para o textView que indicara o total de dias jogados*/
    private int m_played_days;
+   /** String para o textView que indicara a media de pontos por dia.*/
+   private String mAverage;
 
    private int mGatosApply;
 
    public ItensListViewInicio (){}
-
-   public ItensListViewInicio(
-           int p_id,
-           String p_name,
-           String p_ptTotal,
-           String p_ptCat,
-           int p_total,
-           int p_loses,
-           int p_wins) {
-      this.m_name = p_name;
-      this.m_pontos = p_ptTotal;
-      this.m_gatos = p_ptCat;
-      this.m_total_pontos = p_total;
-      this.m_loses = p_loses;
-      this.m_wins = p_wins;
-   }
 
    public int get_id() {
       return m_id;
@@ -111,7 +97,12 @@ public class ItensListViewInicio{
    public void set_played_days(int m_played_days) {
       this.m_played_days = m_played_days;
    }
-    public int getGatosApply() { return mGatosApply;}
+
+   public String getmAverage() { return mAverage; }
+
+   public void setmAverage(String mAverage) { this.mAverage = mAverage; }
+
+   public int getGatosApply() { return mGatosApply;}
 
     public void setGatosApply(int pGatosApply) { this.mGatosApply =
             pGatosApply; }

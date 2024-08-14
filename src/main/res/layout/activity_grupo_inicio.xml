@@ -54,7 +54,7 @@
                 android:id="@+id/tvTitleName"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="3"
+                android:layout_weight="2"
                 android:text="Nome"
                 android:textStyle="bold" />
 
@@ -65,6 +65,15 @@
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
                 android:text="D"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvAverage"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center_horizontal"
+                android:text="M"
                 android:textStyle="bold" />
 
             <TextView
@@ -168,7 +177,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="D1=dias-V=vitória-D2=derrota-P=pontos-G=gatos-H=hoje"/>
+                android:text="D1=dias-M=med-V=vit-D2=der.-P=pts-G=gatos-H=hoje"/>
         </TableRow>
     </TableLayout>
 

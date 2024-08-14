@@ -179,6 +179,8 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
             ilv.setM_wins(winsTotal);
             //Dias jogados
             ilv.set_played_days(daysPlayed);
+            //Media de pontos por dia.
+            ilv.setmAverage( String.format("%.1f", ( double ) ( ptTotal-catTotal) / daysPlayed));
             //Gatos aplicados
             ilv.setGatosApply( gatosApply );
             listItensInicio.add(ilv);
@@ -206,15 +208,19 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
     private void loadViewResume() {
         m_list = findViewById(R.id.lvJogadores);
 
-        ArrayAdapter<ItensListViewInicio> adapter = new ArrayAdapter<ItensListViewInicio>(this,
-                R.layout.activity_inicio_itens, m_listItensInicio) {
+        ArrayAdapter<ItensListViewInicio> adapter = new ArrayAdapter<>(
+                this,
+                R.layout.activity_inicio_itens,
+                m_listItensInicio) {
             @Override
             public View getView(int p_position, View p_convertView, ViewGroup p_parent) {
                 // Use view holder patern to better performance with list view.
                 ViewHolderItem vh = null;
 
                 if (p_convertView == null) {
-                    p_convertView = getLayoutInflater().inflate(R.layout.activity_inicio_itens, p_parent,
+                    p_convertView = getLayoutInflater().inflate(
+                            R.layout.activity_inicio_itens,
+                            p_parent,
                             false);
 
                     vh = new ViewHolderItem();
@@ -222,6 +228,8 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                     vh.tvOrder = p_convertView.findViewById(R.id.tvOrder);
 
                     vh.tvDaysPlayed = p_convertView.findViewById(R.id.tvDaysPlayed);
+
+                    vh.tvAverage = p_convertView.findViewById(R.id.tvAverage);
 
                     vh.tvName = p_convertView.findViewById(R.id.tvName);
 
@@ -253,6 +261,8 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                 vh.tvOrder.setText(String.valueOf(p_position + 1));
 
                 vh.tvDaysPlayed.setText(String.valueOf((itemL.get_played_days())));
+
+                vh.tvAverage.setText(itemL.getmAverage());
 
                 // Name
                 vh.tvName.setText(itemL.getM_name());
@@ -320,6 +330,7 @@ public class GrupoInicioActivity extends Activity implements OnItemClickListener
                 TextView
                         tvOrder,
                         tvDaysPlayed,
+                        tvAverage,
                         tvName,
                         tvWins, tvWinsToday,
                         tvLoses, tvLosesToday,
